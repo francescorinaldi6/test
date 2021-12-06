@@ -29,7 +29,6 @@ public class AziendaController {
 		for (int i=0; i<aziende.size(); i++)
 		dao.save(aziende.get(i));
 		return  "Sono state aggiunte " + aziende.size() + " aziende";
-		
 	}
 	
 	@GetMapping("/getTickets")
