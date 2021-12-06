@@ -12,17 +12,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="ufficio")
+@Table(name="utente")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 
-public class Ufficio {
+public class Utente {
 	@Id @GeneratedValue
-	public int id_ufficio;
-	public String indirizzo;
-	public int grandezza;
+	public int id_utente;
+	public String cf;
+	public String nome;
+	public String cognome;
+	public String e_mail;
+	public int numero;  //vedere se cambiare in String visto che un numero a 10 cifre è pesante
 	public int id_azienda;
+	
 }

@@ -12,17 +12,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="ufficio")
+@Table(name="posto")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 
-public class Ufficio {
+public class Posto {
 	@Id @GeneratedValue
+	public int id_posto;
+	@Id
 	public int id_ufficio;
-	public String indirizzo;
-	public int grandezza;
-	public int id_azienda;
+	public char prenotabile;
+	public int numero_postazione;
 }
