@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.prenotazione.dao.AziendaDao;
 import com.example.prenotazione.model.Azienda;
 
-
-
-
-
 @RestController
 @RequestMapping("/Azienda")
 
@@ -23,7 +19,7 @@ public class AziendaController {
 	@Autowired
 	private AziendaDao dao;
 	
-	@PostMapping("/AddAziende")
+	@PostMapping("/addAziende")
 	public String addAziende(@RequestBody List<Azienda> aziende) {
 		
 		for (int i=0; i<aziende.size(); i++)
@@ -31,7 +27,7 @@ public class AziendaController {
 		return  "Sono state aggiunte " + aziende.size() + " aziende";
 	}
 	
-	@GetMapping("/getTickets")
+	@GetMapping("/getAziende")
 	public List<Azienda> getAziende() {
 		return (List<Azienda>) dao.findAll();
 	}
