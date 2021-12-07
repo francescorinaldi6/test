@@ -27,6 +27,8 @@ public class Utente {
 	public String cognome;
 	public String e_mail;
 	public String numero;  
+	public char tipo;
+	public String password;
 	public int id_azienda;
 	
 	
@@ -73,5 +75,18 @@ public class Utente {
 	public void setId_azienda(int id_azienda) {
 		this.id_azienda = id_azienda;
 	}
+	public char getTipo() {
+		return tipo;
+	}
+	public void setTipo(char tipo) {
+		this.tipo = tipo;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	
 }
