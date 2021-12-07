@@ -20,6 +20,17 @@ import lombok.ToString;
 @ToString
 
 public class Utente {
+	@Id @GeneratedValue
+	public int id_utente;
+	public String cf;
+	public String nome;
+	public String cognome;
+	public String e_mail;
+	public String numero;  //vedere se cambiare in String visto che un numero a 10 cifre è pesante
+	public int id_azienda;
+	
+	
+	//getter e setter
 	public int getId_utente() {
 		return id_utente;
 	}
@@ -62,15 +73,5 @@ public class Utente {
 	public void setId_azienda(int id_azienda) {
 		this.id_azienda = id_azienda;
 	}
-	@Id @GeneratedValue
-	public int id_utente;
-	public String cf;
-	public String nome;
-	public String cognome;
-	public String e_mail;
-	public String numero;  //vedere se cambiare in String visto che un numero a 10 cifre è pesante
-	public int id_azienda;
-	
-	
 	
 }
