@@ -26,7 +26,7 @@ public class Utente {
 	public String nome;
 	public String cognome;
 	public String e_mail;
-	public String numero;  //vedere se cambiare in String visto che un numero a 10 cifre è pesante
+	public String numero;  
 	public int id_azienda;
 	
 	
