@@ -1,8 +1,11 @@
 package com.example.prenotazione.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,8 +21,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@IdClass(Posto.class)
 
-public class Posto {
+public class Posto implements Serializable {
 	@Id @GeneratedValue
 	public int id_posto;
 	@Id
