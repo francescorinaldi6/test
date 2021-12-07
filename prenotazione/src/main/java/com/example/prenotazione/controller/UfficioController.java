@@ -36,6 +36,6 @@ public class UfficioController {
 	
 	@GetMapping("/getUffici")
 	public List<Ufficio> getUffici() {
-		return (List<Ufficio>) dao.findAll();
+		return (List<Ufficio>) dao.getUfficiPerAziende();
 	}
 }
