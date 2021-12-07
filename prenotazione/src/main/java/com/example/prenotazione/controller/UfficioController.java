@@ -22,9 +22,16 @@ public class UfficioController {
 	@PostMapping("/addUffici")
 	public String addUffici(@RequestBody List<Ufficio> uffici) {
 		
-		for (int i=0; i<uffici.size(); i++)
+		for (int i=0; i<uffici.size(); i++) {
+			
+		if(!dao.aziendaExists(uffici.get(i).id_azienda).isEmpty()) {
 		dao.save(uffici.get(i));
 		return  "Sono stati aggiunti " + uffici.size() + " uffici";
+		}else {
+			return "L'azienda inserita non è stata registrata";
+		}
+		}
+		return "Inserimento completato";
 	}
 	
 	@GetMapping("/getUffici")
