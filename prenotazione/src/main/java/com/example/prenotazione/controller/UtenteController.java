@@ -24,7 +24,7 @@ public class UtenteController {
 		
 		
 		dao.save(utente);
-		return  "Utente aggiunto con successo";
+		return  "Utente "+utente.getId_utente()+" aggiunto";
 		
 	}
 	
