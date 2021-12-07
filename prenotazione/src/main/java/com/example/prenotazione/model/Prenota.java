@@ -24,9 +24,7 @@ import lombok.ToString;
 public class Prenota {
 	@Id @GeneratedValue
 	public int id_prenotazione; //controlla su db se è chiave primaria
-	@Id
 	public int id_posto;
-	@Id
 	public int id_ufficio;
 	public Date data_inizio;  //date tipo non so se giusto
 	public Date data_fine;
