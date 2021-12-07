@@ -26,6 +26,11 @@ public class Ufficio {
 	public int grandezza;
 	public int id_azienda;
 	
+	@Override
+	public String toString() {
+		return "Ufficio [id_ufficio=" + id_ufficio + ", indirizzo=" + indirizzo + ", grandezza=" + grandezza
+				+ ", id_azienda=" + id_azienda + "]";
+	}
 	//getter e setter
 	public int getId_ufficio() {
 		return id_ufficio;
