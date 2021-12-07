@@ -20,11 +20,11 @@ public class UtenteController {
 	private UtenteDao dao;
 	
 	@PostMapping("/signup")
-	public String addUtente(@RequestBody Utente utente) {
+	public String addUtente(@RequestBody List<Utente> utenti) {
 		
-		
-		dao.save(utente);
-		return  "Utente "+utente.getId_utente()+" aggiunto";
+		for (int i=0; i<utenti.size(); i++)
+			dao.save(utenti.get(i));
+		return  "Utente "+(utenti.get(0)).getId_utente()+" aggiunto";
 		
 	}
 	
