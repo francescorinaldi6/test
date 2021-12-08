@@ -1,9 +1,15 @@
 package com.example.prenotazione.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 
-public class Utente {
+public class Utente  {
 	@Id @GeneratedValue
 	public int id_utente;
 	public String cf;
@@ -31,6 +37,12 @@ public class Utente {
 	public String password;
 	public int id_azienda;
 	
+	
+	@ManyToMany(cascade = CascadeType.ALL) //la persistenza propagherà (a cascata) tutte le EntityManageroperazioni ( PERSIST, REMOVE, REFRESH, MERGE, DETACH) alle entità relative.
+	@JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "id_utente"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
+	private Set<Role> roles;   //vettore di bit che aumenta se necessario, non ammette duplicati
+
+
 	
 	//getter e setter
 	public int getId_utente() {
@@ -87,6 +99,15 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+
 	
 	
 }
