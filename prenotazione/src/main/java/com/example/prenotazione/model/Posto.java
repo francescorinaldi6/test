@@ -31,6 +31,7 @@ public class Posto implements Serializable {
 	public char prenotabile;
 	public int numero_postazione;
 	
+	
 	//getter e setter
 	public int getId_posto() {
 		return id_posto;

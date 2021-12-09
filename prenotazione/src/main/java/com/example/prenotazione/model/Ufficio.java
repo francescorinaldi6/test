@@ -25,7 +25,7 @@ public class Ufficio {
 	public String indirizzo;
 	public int grandezza;
 	public int id_azienda;
-	
+	public int n_posti;
 	@Override
 	public String toString() {
 		return "Ufficio [id_ufficio=" + id_ufficio + ", indirizzo=" + indirizzo + ", grandezza=" + grandezza
@@ -34,6 +34,12 @@ public class Ufficio {
 	//getter e setter
 	public int getId_ufficio() {
 		return id_ufficio;
+	}
+	public int getN_posti() {
+		return n_posti;
+	}
+	public void setN_posti(int n_posti) {
+		this.n_posti = n_posti;
 	}
 	public void setId_ufficio(int id_ufficio) {
 		this.id_ufficio = id_ufficio;
