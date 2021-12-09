@@ -29,23 +29,30 @@ public class UtenteController {
 
 	public String addUtente(@RequestBody List<Utente> utenti) {
 		
+		
+		
+		
+		
 		for (int i=0; i<utenti.size(); i++) {
-			
-	
-	
+
 	utenti.get(i).setPassword(encoder.encode(utenti.get(i).getPassword())); //conversione da chiaro a criptato
 
-		
 }
-		
-		
-		for (int i=0; i<utenti.size(); i++)
+	
+		for (int i=0; i<utenti.size(); i++) {
+
+			if(!dao.aziendaExists(utenti.get(i).id_azienda).isEmpty()) {
 			
 			dao.save(utenti.get(i));
 		
 		return  "Utente "+(utenti.get(0)).getId_utente()+" aggiunto";
-		
+			} else {
+				return "L'azienda inserita non è stata registrata";
+			}
+		}
+		return "";
 	}
+
 	@PostMapping("/login")
 	public String Login(@ModelAttribute("e_mail") List<Utente> utenti) {
 		
