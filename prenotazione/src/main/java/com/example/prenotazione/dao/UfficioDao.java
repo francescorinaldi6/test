@@ -17,4 +17,7 @@ public interface UfficioDao extends CrudRepository<Ufficio, Integer>{
 	
 	@Query(value="SELECT * FROM ufficio u ORDER BY u.id_azienda", nativeQuery = true) List<Ufficio> getUfficiPerAziende();
 	
+	@Query(name = "prova", value="SELECT * FROM ufficio u WHERE u.id_azienda = :id", nativeQuery = true) List<Ufficio> getUfficiPerAziende(@Param("id") int id);
+	
+	
 }
