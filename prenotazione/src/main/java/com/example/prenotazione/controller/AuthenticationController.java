@@ -40,6 +40,8 @@ public class AuthenticationController {
 		modelAndView.setViewName("home"); // resources/template/home.html
 		return modelAndView;
 	}
+	
+
 }
 
 
