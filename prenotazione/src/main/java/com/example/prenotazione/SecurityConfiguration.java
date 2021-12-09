@@ -15,11 +15,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 //Sovrascriveremo le configurazioni predefinite di Spring Security
 //per utilizzare l'autenticazione e l'autorizzazione basate su JDBC(java database connectivity)
 	@Autowired
@@ -28,16 +29,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Value("${spring.queries.users-query}")
 	private String usersQuery;
 	
-													//Queries from application.properties
+												//Queries from application.properties
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery)
 				.dataSource(dataSource).passwordEncoder(bCryptPasswordEncoder);
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	
@@ -45,6 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				// URLs matching for access rights
 				.antMatchers("/").permitAll()
+				.antMatchers("/Utente").permitAll()	
+				.antMatchers("/Utente/signup").permitAll()		
 				.antMatchers("/login").permitAll() //permitAll = tutti possonoa accedere
 				.antMatchers("/register").permitAll()
 				.antMatchers("/home/**").hasAnyAuthority("SUPER_USER", "ADMIN_USER", "SITE_USER")
@@ -64,11 +67,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/").and()
 				.exceptionHandling()
 				.accessDeniedPage("/access-denied");
+				
+				
+				
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
 	}
-
+	
 }
+
