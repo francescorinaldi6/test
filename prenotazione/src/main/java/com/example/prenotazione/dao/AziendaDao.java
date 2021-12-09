@@ -11,6 +11,8 @@ import com.example.prenotazione.model.Ufficio;
 
 public interface AziendaDao extends CrudRepository<Azienda, Integer>{
 
-	@Query(value="SELECT * FROM ufficio u WHERE u.id_azienda = :id", nativeQuery = true) List<Object> getUfficiPerAziende(@Param("id") int id);
+	
+	
+	@Query(name = "prova", value="SELECT * FROM ufficio u WHERE u.id_azienda = :id", nativeQuery = true) List<Object> getUfficiPerAziende(@Param("id") int id);
 	
 }
