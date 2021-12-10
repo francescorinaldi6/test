@@ -29,10 +29,18 @@ public class Prenota {
 	public Date data_inizio;  //date tipo non so se giusto
 	public Date data_fine;
 	public Date data_prenotazione;
+	public int id_utente;
 	
 	//getter e setter
+	
 	public int getId_prenotazione() {
 		return id_prenotazione;
+	}
+	public int getId_utente() {
+		return id_utente;
+	}
+	public void setId_utente(int id_utente) {
+		this.id_utente = id_utente;
 	}
 	public void setId_prenotazione(int id_prenotazione) {
 		this.id_prenotazione = id_prenotazione;
