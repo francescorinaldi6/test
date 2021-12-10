@@ -23,10 +23,11 @@ public class PrenotaController {
 	@Autowired
 	private PrenotaDao dao;
 	
-	@PostMapping("/{id_azienda}/{id_ufficio}")
-	public String creaPrenotazione(@RequestBody Integer id_posto, @PathVariable("id_azienda") int id_azienda,@PathVariable("id_ufficio") int id_ufficio) {
+	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
+	public String creaPrenotazione(@RequestBody int id_posto, @PathVariable("id_azienda") int id_azienda,@PathVariable("id_ufficio") int id_ufficio) {
 		
-		dao.prenotazioneFatta(id_ufficio, id_posto);
+		System.out.println("post "+id_posto);
+//		dao.prenotazioneFatta(id_ufficio, id_posto.getId_posto());
 
 		return  "Hai effettuato la tua prenotazione";
 	}
