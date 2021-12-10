@@ -39,7 +39,7 @@ public class AziendaController {
 	
 	@GetMapping("/{id}/getUffici")
 	public List<Ufficio> getUfficiAziende(@PathVariable("id") int id) {
-		System.out.println("uffici "+dao_uff.getUfficiPerAziende(id).get(1));
+		
 		return dao_uff.getUfficiPerAziende(id);
 	}
 	
