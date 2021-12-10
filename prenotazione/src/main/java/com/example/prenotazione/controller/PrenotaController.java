@@ -29,9 +29,14 @@ import com.example.prenotazione.model.postoid;
 @RequestMapping("/Prenota")
 
 
+
+
 public class PrenotaController {
     @Autowired
     private PrenotaDao dao;
+
+
+
 
 
     @PostMapping("{id_azienda}/{id_ufficio}")
