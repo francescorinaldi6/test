@@ -23,7 +23,7 @@ import com.example.prenotazione.model.Azienda;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Ufficio;
-import com.example.prenotazione.model.postoid;
+
 
 
 @RestController
