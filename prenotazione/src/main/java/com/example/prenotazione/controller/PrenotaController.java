@@ -31,11 +31,13 @@ import com.example.prenotazione.model.postoid;
 
 
 
+
 public class PrenotaController {
 	@Autowired
 	private PrenotaDao dao;
 	
 	
+
 
 	
 	
@@ -46,4 +48,7 @@ public class PrenotaController {
 
 		return  "Hai effettuato la tua prenotazione"+p.get(0).getId_posto();
 	}
+
+
+
 }
