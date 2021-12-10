@@ -50,10 +50,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Utente").permitAll()	
 				.antMatchers("/Utente/signup").permitAll()	
 				.antMatchers("/Utente/login").permitAll()	
+				.antMatchers("/Utente/{id}/getPrenotazione").permitAll()	
 //				//prenota
 				.antMatchers("/Prenota").permitAll()	
 				.antMatchers("/Prenota/posto").permitAll()	
-				.antMatchers("/Prenota/{id_azienda}/{id_ufficio}").permitAll()	
+				.antMatchers("/Prenota/{id_utente}/{id_azienda}/{id_ufficio}").permitAll()	
 //				ufficio
 				.antMatchers("/Ufficio").permitAll()	
 				.antMatchers("/Ufficio/addUffici").permitAll()	
