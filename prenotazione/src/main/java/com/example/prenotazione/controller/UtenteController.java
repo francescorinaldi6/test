@@ -29,10 +29,6 @@ public class UtenteController {
 
 	public String addUtente(@RequestBody List<Utente> utenti) {
 		
-		
-		
-		
-		
 		for (int i=0; i<utenti.size(); i++) {
 
 	utenti.get(i).setPassword(encoder.encode(utenti.get(i).getPassword())); //conversione da chiaro a criptato
