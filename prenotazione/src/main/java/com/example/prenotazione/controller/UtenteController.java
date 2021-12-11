@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.prenotazione.dao.EmailDao;
 import com.example.prenotazione.dao.PrenotaDao;
 import com.example.prenotazione.dao.UtenteDao;
 import com.example.prenotazione.model.Mail;
@@ -36,6 +37,9 @@ public class UtenteController {
 	private UtenteDao dao;
 	@Autowired
 	private PrenotaDao prenota;
+	@Autowired
+	private EmailDao email;
+	
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -73,8 +77,8 @@ public class UtenteController {
 		
 		for (int i=0; i<e_mail.size(); i++) {
 			
-		//	if(!dao.e_mailExists(e_mail.get(i).e_mail).isEmpty()) {
-				//send email
+			if(!email.e_mailExists(e_mail.get(i).e_mail).isEmpty()) {
+//				send email
 				try {
 					notificationService.sendNotification(e_mail.get(0));
 				} catch(MailException e) {
@@ -84,9 +88,9 @@ public class UtenteController {
 		
 		
 		
-		//	} else {
-				//return "L'email inserita non appartiene a nessun utente";
-		//	}
+			} else {
+				return "L'email inserita non appartiene a nessun utente";
+			}
 			
 		}
 		
