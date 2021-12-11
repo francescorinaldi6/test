@@ -14,6 +14,6 @@ public interface UtenteDao extends CrudRepository<Utente, Integer>{
 	@Query(value="SELECT id_azienda FROM azienda a WHERE a.id_azienda = :id", nativeQuery = true) List<Integer> aziendaExists(@Param("id") int id);
 	
 	
-	@Query(value="SELECT e_mail FROM utente u WHERE u.e_mail = :mail", nativeQuery = true) List<Integer> e_mailExists(@Param("mail") String e_mail);
+	@Query(value="SELECT e_mail FROM utente u WHERE u.e_mail = :e_mail", nativeQuery = true) List<Integer> e_mailExists(@Param("e_mail") String e_mail);
 	
 }
