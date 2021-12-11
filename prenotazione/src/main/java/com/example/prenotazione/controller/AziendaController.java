@@ -23,24 +23,24 @@ public class AziendaController {
 	private AziendaDao dao;
 	@Autowired
 	private UfficioDao dao_uff;
-	
+
 	@PostMapping("/addAziende")
 	public String addAziende(@RequestBody List<Azienda> aziende) {
-		
-		for (int i=0; i<aziende.size(); i++)
-		dao.save(aziende.get(i));
-		return  "Sono state aggiunte " + aziende.size() + " aziende";
+
+		for (int i = 0; i < aziende.size(); i++)
+			dao.save(aziende.get(i));
+		return "Sono state aggiunte " + aziende.size() + " aziende";
 	}
-	
+
 	@GetMapping("/getAziende")
 	public List<Azienda> getAziende() {
 		return (List<Azienda>) dao.findAll();
 	}
-	
+
 	@GetMapping("/{id}/getUffici")
 	public List<Ufficio> getUfficiAziende(@PathVariable("id") int id) {
-		
+
 		return dao_uff.getUfficiPerAziende(id);
 	}
-	
+
 }

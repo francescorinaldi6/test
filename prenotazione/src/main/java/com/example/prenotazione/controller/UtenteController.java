@@ -30,78 +30,68 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UtenteController {
 	@Autowired
-    private NotificationService notificationService;
+	private NotificationService notificationService;
 
-    @Autowired
-    private UtenteDao dao;
-    @Autowired
-    private PrenotaDao prenota;
-    @Autowired
-    private EmailDao email;
+	@Autowired
+	private UtenteDao dao;
+	@Autowired
+	private PrenotaDao prenota;
+	@Autowired
+	private EmailDao email;
 
+	@Autowired
+	BCryptPasswordEncoder encoder;
 
-    @Autowired
-    BCryptPasswordEncoder encoder;
+	@PostMapping("/signup")
 
-    @PostMapping("/signup")
+	public String addUtente(@RequestBody List<Utente> utenti) {
 
+		for (int i = 0; i < utenti.size(); i++) {
 
-    public String addUtente(@RequestBody List<Utente> utenti) {
+			utenti.get(i).setPassword(encoder.encode(utenti.get(i).getPassword())); // conversione da chiaro a criptato
 
-        for (int i=0; i<utenti.size(); i++) {
+		}
 
-    utenti.get(i).setPassword(encoder.encode(utenti.get(i).getPassword())); //conversione da chiaro a criptato
+		for (int i = 0; i < utenti.size(); i++) {
 
-}
+			if (!dao.aziendaExists(utenti.get(i).id_azienda).isEmpty()) {
 
-        for (int i=0; i<utenti.size(); i++) {
+				dao.save(utenti.get(i));
 
-            if(!dao.aziendaExists(utenti.get(i).id_azienda).isEmpty()) {
+				return "Utente " + (utenti.get(0)).getId_utente() + " aggiunto";
+			} else {
+				return "L'azienda inserita non è stata registrata";
+			}
+		}
+		return "ok";
+	}
 
-            dao.save(utenti.get(i));
+	@PostMapping("/ForgotPassword")
+	public String ForgotPassword(@RequestBody List<Mail> e_mail) {
 
-        return  "Utente "+(utenti.get(0)).getId_utente()+" aggiunto";
-            } else {
-                return "L'azienda inserita non è stata registrata";
-            }
-        }
-        return "ok";
-    }
+		for (int i = 0; i < e_mail.size(); i++) {
 
-
-
-
-    @PostMapping("/ForgotPassword")
-    public String ForgotPassword(@RequestBody List<Mail> e_mail) {
-
-        for (int i=0; i<e_mail.size(); i++) {
-
-            if(!email.e_mailExists(e_mail.get(i).e_mail).isEmpty()) {
+			if (!email.e_mailExists(e_mail.get(i).e_mail).isEmpty()) {
 //                send email
-                try {
-                    notificationService.sendNotification(e_mail.get(0));
-                } catch(MailException e) {
-                    //catch error
-                }
+				try {
+					notificationService.sendNotification(e_mail.get(0));
+				} catch (MailException e) {
+					// catch error
+				}
 
+			} else {
+				return "L'email inserita non appartiene a nessun utente";
+			}
 
+		}
 
+		return "ok" + e_mail.get(0).getE_mail();
 
-            } else {
-                return "L'email inserita non appartiene a nessun utente";
-            }
+	}
 
-        }
+	@GetMapping("/{id}/getPrenotazione")
+	public Prenota getPrenotazione(@PathVariable("id") int id) {
 
-
-
-
-        return  "ok"+e_mail.get(0).getE_mail();
-
-    }
-    @GetMapping("/{id}/getPrenotazione")
-    public Prenota getPrenotazione(@PathVariable("id") int id) {
-
-        return prenota.getPrenotazione(id);
-    }
+		return prenota.getPrenotazione(id);
+	}
 }

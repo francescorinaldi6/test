@@ -19,11 +19,13 @@ import org.springframework.data.repository.query.Param;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 
-public interface PrenotaDao extends CrudRepository<Prenota, Integer>{
+public interface PrenotaDao extends CrudRepository<Prenota, Integer> {
 	@Transactional
 	@Modifying
-	@Query(value="UPDATE posto p SET prenotabile = false  WHERE p.id_ufficio= :id_ufficio AND p.id_posto = :id_posto ", nativeQuery = true) void prenotazioneFatta(@Param("id_ufficio") int id_ufficio, @Param("id_posto") int id_posto);
-	
-	@Query(value="SELECT * FROM prenota p WHERE p.id_utente = :id", nativeQuery = true) Prenota getPrenotazione(@Param("id") int id);
-	
+	@Query(value = "UPDATE posto p SET prenotabile = false  WHERE p.id_ufficio= :id_ufficio AND p.id_posto = :id_posto ", nativeQuery = true)
+	void prenotazioneFatta(@Param("id_ufficio") int id_ufficio, @Param("id_posto") int id_posto);
+
+	@Query(value = "SELECT * FROM prenota p WHERE p.id_utente = :id", nativeQuery = true)
+	Prenota getPrenotazione(@Param("id") int id);
+
 }
