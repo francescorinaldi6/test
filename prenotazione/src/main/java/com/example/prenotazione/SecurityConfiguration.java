@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// URLs matching for access rights
 				.antMatchers("/").permitAll()
 				//utente
-				.antMatchers("/Utente").permitAll()	
+				.antMatchers("/Utente/*").permitAll()	
 				.antMatchers("/Utente/signup").permitAll()	
 				.antMatchers("/Utente/login").permitAll()	
 				.antMatchers("/Utente/{id}/getPrenotazione").permitAll()	
@@ -67,6 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Azienda/getAziende").permitAll()	
 				.antMatchers("/Azienda/{id}/getUffici").permitAll()	
 				.antMatchers("/login").permitAll() //permitAll = tutti possonoa accedere
+				.antMatchers("/login2").permitAll() 
 				.antMatchers("/register").permitAll()
 				.antMatchers("/home/**").hasAnyAuthority("SUPER_USER", "ADMIN_USER", "SITE_USER")
 				.anyRequest().authenticated()
