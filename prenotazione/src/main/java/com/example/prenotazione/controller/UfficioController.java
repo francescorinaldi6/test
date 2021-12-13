@@ -35,14 +35,9 @@ public class UfficioController {
 				for (int j = 1; j < ((uffici.get(i)).getN_posti()) + 1; j++) {
 
 					postazione.setNumero_postazione(j);
-					postazione.setPrenotabile(true);
 					postazione.setId_ufficio((uffici.get(i)).getId_ufficio());
 					posto.save(postazione);
 				}
-				postazione.setNumero_postazione(20);
-				postazione.setPrenotabile(false);
-				postazione.setId_ufficio((uffici.get(i)).getId_ufficio());
-				posto.save(postazione);
 
 				return "Sono stati aggiunti " + uffici.size() + " uffici";
 			} else {

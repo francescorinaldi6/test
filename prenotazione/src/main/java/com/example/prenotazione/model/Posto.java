@@ -28,7 +28,6 @@ public class Posto implements Serializable {
 	public int id_posto;
 	@Id
 	public int id_ufficio;
-	public boolean prenotabile;
 	public int numero_postazione;
 	
 	
@@ -46,12 +45,6 @@ public class Posto implements Serializable {
 		this.id_ufficio = id_ufficio;
 	}
 	
-	public boolean isPrenotabile() {
-		return prenotabile;
-	}
-	public void setPrenotabile(boolean prenotabile) {
-		this.prenotabile = prenotabile;
-	}
 	public int getNumero_postazione() {
 		return numero_postazione;
 	}

@@ -32,16 +32,28 @@ public class PrenotaController {
 	private PrenotaDao dao;
 
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
-//	public String creaPrenotazione(@RequestBody List<postoid> p, @PathVariable("id_azienda") int id_azienda,@PathVariable("id_ufficio") int id_ufficio) {
-	public String creaPrenotazione(@RequestBody List<Prenota> p, @PathVariable("id_utente") int id_utente,
-			@PathVariable("id_ufficio") int id_ufficio) {
+	public String creaPrenotazione(@RequestBody List<Prenota> p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
 
-		p.get(0).setId_utente(id_utente);
-		p.get(0).setId_ufficio(id_ufficio);
-		dao.save(p.get(0));
-		dao.prenotazioneFatta(id_ufficio, p.get(0).getId_posto());
-
-		return "Hai effettuato la tua prenotazione al posto " + p.get(0).getId_posto();
+		for(int i=0; i<p.size();i++) {
+			
+			if(!dao.postoExists(p.get(i).getId_posto()).isEmpty()) {
+				if(dao.checkGiaPrenotato(p.get(i).getData_prenotazione(), id_utente).isEmpty()) {
+					 if(dao.checkPrenotabile(p.get(i).getData_prenotazione(), p.get(i).getId_posto()).isEmpty()) {
+							p.get(i).setId_utente(id_utente);
+							p.get(i).setId_ufficio(id_ufficio);
+							dao.save(p.get(i));
+							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto();
+						}else {
+							return "deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.get(i).getData_prenotazione();
+						}
+				}  else {
+					return "Hai gia prenotato un posto per la data "+p.get(i).getData_prenotazione();
+				}
+			}else {
+				return "Non esiste il posto "+p.get(i).getId_posto();
+			}
+		}
+		return "";
 	}
 
 }

@@ -26,8 +26,6 @@ public class Prenota {
 	public int id_prenotazione; 
 	public int id_posto;
 	public int id_ufficio;
-	public Date data_inizio;  //date tipo non so se giusto
-	public Date data_fine;
 	public Date data_prenotazione;
 	public int id_utente;
 	
@@ -56,18 +54,6 @@ public class Prenota {
 	}
 	public void setId_ufficio(int id_ufficio) {
 		this.id_ufficio = id_ufficio;
-	}
-	public Date getData_inizio() {
-		return data_inizio;
-	}
-	public void setData_inizio(Date data_inizio) {
-		this.data_inizio = data_inizio;
-	}
-	public Date getData_fine() {
-		return data_fine;
-	}
-	public void setData_fine(Date data_fine) {
-		this.data_fine = data_fine;
 	}
 	public Date getData_prenotazione() {
 		return data_prenotazione;
