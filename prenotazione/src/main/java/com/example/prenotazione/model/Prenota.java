@@ -28,6 +28,7 @@ public class Prenota {
 	public int id_ufficio;
 	public Date data_prenotazione;
 	public int id_utente;
+	public String QrCode;
 	
 	//getter e setter
 	
