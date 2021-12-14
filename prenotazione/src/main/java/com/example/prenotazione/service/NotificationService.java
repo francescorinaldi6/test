@@ -24,7 +24,7 @@ public class NotificationService {
 		mail.setTo(Mail.getE_mail());
 		mail.setFrom("lalibreria2020@gmail.com");
 		mail.setSubject("Prenotazione ResetPassword");
-		mail.setText("http://localhost:9090/"+Mail.getE_mail()+"/ResetPassword");
+		mail.setText("http://localhost:9090/Utente/"+Mail.getE_mail()+"/ResetPassword");
 		
 		javaMailSender.send(mail);
 	}
