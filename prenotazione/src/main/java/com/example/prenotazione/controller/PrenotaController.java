@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,10 @@ import com.example.prenotazione.model.Ufficio;
 public class PrenotaController {
 	@Autowired
 	private PrenotaDao dao;
+	
+	@Autowired
+	BCryptPasswordEncoder encoder;
+
 	
 	
 	public String generateRandomString() {
@@ -62,10 +67,14 @@ public class PrenotaController {
 			if(!dao.postoExists(p.get(i).getId_posto()).isEmpty()) {
 				if(dao.checkGiaPrenotato(p.get(i).getData_prenotazione(), id_utente).isEmpty()) {
 					 if(dao.checkPrenotabile(p.get(i).getData_prenotazione(), p.get(i).getId_posto()).isEmpty()) {
+						 String criptata = encoder.encode(generateRandomString());
 							p.get(i).setId_utente(id_utente);
 							p.get(i).setId_ufficio(id_ufficio);
+							p.get(i).setQrCode(criptata);
 							dao.save(p.get(i));
-							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto()+ "     "+generateRandomString();
+							
+							
+							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto()+ "     "+criptata;
 						}else {
 							return "deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.get(i).getData_prenotazione();
 						}
