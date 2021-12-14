@@ -12,5 +12,8 @@ public interface EmailDao extends CrudRepository<Utente, String> {
 
 	@Query(value = "SELECT e_mail FROM utente u WHERE u.e_mail = :mail", nativeQuery = true)
 	List<String> e_mailExists(@Param("mail") String e_mail);
-
+   
+	@Query(value = "SELECT id_utente FROM utente u where u.e_mail = :mail" ,nativeQuery = true)
+	List<Integer> IdutentedaMail(@Param("mail") String e_mail);
+	
 }

@@ -19,6 +19,7 @@ import com.example.prenotazione.dao.EmailDao;
 import com.example.prenotazione.dao.PrenotaDao;
 import com.example.prenotazione.dao.UtenteDao;
 import com.example.prenotazione.model.Mail;
+import com.example.prenotazione.model.Password;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Utente;
@@ -108,4 +109,19 @@ public class UtenteController {
 
 		return prenota.getPrenotazione(id);
 	}
+	
+
+	
+	@PostMapping("/{mail}/ResetPassword")
+	public String ResetPassword(@PathVariable("mail") String mail, @RequestBody List<Password> password) {
+		for (int i = 0; i < password.size(); i++) {
+	password.get(i).setPassword(encoder.encode(password.get(i).getPassword()));
+	
+		dao.ResetPassword(email.IdutentedaMail(mail).get(i),password.get(i).getPassword());
+		}
+		return "password aggiornata per l'utente" + password.get(0).getPassword()+"  "+email.IdutentedaMail(mail).get(0);
+
+	}
+	
+	
 }

@@ -2,6 +2,9 @@ package com.example.prenotazione.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +21,11 @@ public interface UtenteDao extends CrudRepository<Utente, Integer> {
 	
 	@Query(value = "SELECT * FROM utente u ", nativeQuery = true)
 	List<Utente> utenti();
+	
+	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE utente u  SET password = :password WHERE u.id_utente = :id", nativeQuery = true)
+	void ResetPassword(@Param("id") int id, @Param("password") String password );
+	
 }
