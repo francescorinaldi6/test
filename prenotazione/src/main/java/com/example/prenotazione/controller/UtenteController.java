@@ -2,6 +2,8 @@ package com.example.prenotazione.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -82,7 +84,7 @@ public class UtenteController {
 	}
 
 	@PostMapping("/ForgotPassword")
-	public String ForgotPassword(@RequestBody List<Mail> e_mail) {
+	public String ForgotPassword(@RequestBody List<Mail> e_mail) throws MessagingException {
 
 		for (int i = 0; i < e_mail.size(); i++) {
 
