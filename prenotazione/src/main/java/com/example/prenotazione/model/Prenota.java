@@ -28,7 +28,7 @@ public class Prenota {
 	public int id_ufficio;
 	public Date data_prenotazione;
 	public int id_utente;
-	public String QrCode;
+	public String qr_code;
 	
 	//getter e setter
 	
@@ -36,10 +36,10 @@ public class Prenota {
 		return id_prenotazione;
 	}
 	public String getQrCode() {
-		return QrCode;
+		return qr_code;
 	}
 	public void setQrCode(String qrCode) {
-		QrCode = qrCode;
+		qr_code = qrCode;
 	}
 	public int getId_utente() {
 		return id_utente;
