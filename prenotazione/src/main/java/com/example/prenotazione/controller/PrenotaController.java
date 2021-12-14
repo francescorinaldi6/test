@@ -1,7 +1,9 @@
 package com.example.prenotazione.controller;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,10 +32,31 @@ import com.example.prenotazione.model.Ufficio;
 public class PrenotaController {
 	@Autowired
 	private PrenotaDao dao;
+	
+	
+	public String generateRandomString() {
+		 int leftLimit = 48; // numeral '0'
+		    int rightLimit = 122; // letter 'z'
+		    int targetStringLength = 20;
+		    Random random = new Random();
+
+		    String generatedString = random.ints(leftLimit, rightLimit + 1)
+		      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+		      .limit(targetStringLength)
+		      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+		      .toString();
+
+		    System.out.println(generatedString);
+		
+	    return generatedString;
+	}
 
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
 	public String creaPrenotazione(@RequestBody List<Prenota> p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
 
+	
+		
+		
 		for(int i=0; i<p.size();i++) {
 			
 			if(!dao.postoExists(p.get(i).getId_posto()).isEmpty()) {
@@ -42,7 +65,7 @@ public class PrenotaController {
 							p.get(i).setId_utente(id_utente);
 							p.get(i).setId_ufficio(id_ufficio);
 							dao.save(p.get(i));
-							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto();
+							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto()+ "     "+generateRandomString();
 						}else {
 							return "deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.get(i).getData_prenotazione();
 						}
