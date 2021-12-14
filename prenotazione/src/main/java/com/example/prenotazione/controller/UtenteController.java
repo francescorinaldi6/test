@@ -25,7 +25,7 @@ import com.example.prenotazione.model.Password;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Utente;
-import com.example.prenotazione.service.NotificationService;
+import com.example.prenotazione.service.ServiceForgotPassword;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -36,7 +36,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UtenteController {
 	@Autowired
-	private NotificationService notificationService;
+	private ServiceForgotPassword notificationService;
 
 	@Autowired
 	private UtenteDao dao;
