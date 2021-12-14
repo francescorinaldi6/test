@@ -35,6 +35,12 @@ public class Prenota {
 	public int getId_prenotazione() {
 		return id_prenotazione;
 	}
+	public String getQrCode() {
+		return QrCode;
+	}
+	public void setQrCode(String qrCode) {
+		QrCode = qrCode;
+	}
 	public int getId_utente() {
 		return id_utente;
 	}
