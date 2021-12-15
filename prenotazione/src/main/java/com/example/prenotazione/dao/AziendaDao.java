@@ -11,5 +11,7 @@ import com.example.prenotazione.model.Ufficio;
 
 public interface AziendaDao extends CrudRepository<Azienda, Integer>{
 
+	@Query(value = "SELECT id_azienda FROM azienda a WHERE a.p_iva = :p_iva", nativeQuery = true)
+	List<Integer> pivaAlreadyInsert(@Param("p_iva") int p_iva);
 	
 }

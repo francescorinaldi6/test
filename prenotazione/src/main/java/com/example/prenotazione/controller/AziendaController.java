@@ -27,8 +27,14 @@ public class AziendaController {
 	@PostMapping("/addAziende")
 	public String addAziende(@RequestBody List<Azienda> aziende) {
 
-		for (int i = 0; i < aziende.size(); i++)
-			dao.save(aziende.get(i));
+		
+		for (int i = 0; i < aziende.size(); i++) {
+			if(!dao.pivaAlreadyInsert(aziende.get(i).getP_iva()).isEmpty()) {
+				dao.save(aziende.get(i));
+			}else {
+				return "Hai gia inserito questa azienda";
+			}
+		}
 		return "Sono state aggiunte " + aziende.size() + " aziende";
 	}
 
