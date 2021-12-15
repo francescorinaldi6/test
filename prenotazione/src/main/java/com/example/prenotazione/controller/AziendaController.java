@@ -29,7 +29,7 @@ public class AziendaController {
 
 		
 		for (int i = 0; i < aziende.size(); i++) {
-			if(!dao.pivaAlreadyInsert(aziende.get(i).getP_iva()).isEmpty()) {
+			if(dao.pivaAlreadyInsert(aziende.get(i).getP_iva()).isEmpty()) {
 				dao.save(aziende.get(i));
 			}else {
 				return "Hai gia inserito questa azienda";
