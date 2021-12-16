@@ -24,6 +24,8 @@ package com.example.prenotazione.service;
 	@Service
 	public class ServiceSendQr {
 
+		
+		
 		private JavaMailSender javaMailSender;
 		private SimpleMailMessage simpleMailMessage;
 		
