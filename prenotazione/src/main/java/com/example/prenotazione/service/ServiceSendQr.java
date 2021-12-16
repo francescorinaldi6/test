@@ -47,8 +47,7 @@ package com.example.prenotazione.service;
 					helper.setSubject("Qr Prenotazione"); 
 					helper.setText("Qr della prenotazione: ");    //dare info sulla prenotazione passando parametri
 						
-					FileSystemResource file = new FileSystemResource("../prenotazione/Sample.jpg");  //metti il file del qr
-					helper.addAttachment(file.getFilename(), file);
+					FileSystemResource file = new FileSystemResource("C:/Users/Francesco/git/test/prenotazione/QrCode.jpg");
 
 				     }catch (MessagingException e) {
 					throw new MailParseException(e);
