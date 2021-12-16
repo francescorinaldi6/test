@@ -1,9 +1,7 @@
 package com.example.prenotazione.controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
-import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +10,6 @@ import javax.persistence.Id;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +26,6 @@ import com.example.prenotazione.model.Azienda;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Ufficio;
-import com.example.prenotazione.service.QRCodeGenerator;
-import com.example.prenotazione.service.ServiceForgotPassword;
-import com.example.prenotazione.service.ServiceSendQr;
-import com.google.zxing.WriterException;
 
 @RestController
 @RequestMapping("/Prenota")
@@ -43,9 +36,6 @@ public class PrenotaController {
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
-	private static final String QR_CODE_IMAGE_PATH ="../prenotazione/QrCode.jpg";
-	@Autowired
-	private ServiceSendQr notificationService;
 
 	
 	
@@ -82,25 +72,6 @@ public class PrenotaController {
 							p.get(i).setId_ufficio(id_ufficio);
 							p.get(i).setQrCode(criptata);
 							dao.save(p.get(i));
-
-					        byte[] image = new byte[0];
-					        try {
-
-					            // Generate and Return Qr Code in Byte Array
-					            image = QRCodeGenerator.getQRCodeImage(p.get(i).getQrCode(),250,250);
-
-					            // Generate and Save Qr Code Image in static/image folder
-					            QRCodeGenerator.generateQRCodeImage(p.get(i).getQrCode(),250,250,QR_CODE_IMAGE_PATH);
-
-					        } catch (WriterException | IOException e) {
-					            e.printStackTrace();
-					        }
-					        // Convert Byte Array into Base64 Encode String
-					        String qrcode = Base64.getEncoder().encodeToString(image);
-					        
-					        
-					     //   notificationService.sendNotification(mail);
-					        
 							
 							
 							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto()+ "     "+criptata;
@@ -116,18 +87,5 @@ public class PrenotaController {
 		}
 		return "";
 	}
-	//
-	
-	
-
-    @GetMapping("/")
-    public String getQRCode(Model model){
- 
-
-
-    
-        return "qrcode";
-    }
-	
 
 }
