@@ -22,10 +22,9 @@ public interface UtenteDao extends CrudRepository<Utente, Integer> {
 	@Query(value = "SELECT * FROM utente u ", nativeQuery = true)
 	List<Utente> utenti();
 	
-	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into auth_user_role (id_utente, auth_role_id) values (':id','3');", nativeQuery = true)
+	@Query(value = "insert into auth_user_role (id_utente, auth_role_id) values (:id, 3)", nativeQuery = true)
 	void InsertSiteUser(@Param("id") int id);
 	
 	@Transactional

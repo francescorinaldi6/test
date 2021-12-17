@@ -78,7 +78,7 @@ public class UtenteController {
 				
 				dao.save(utenti.get(i));
 				
-				//dao.InsertSiteUser(utenti.get(i).getId_utente());
+				dao.InsertSiteUser(utenti.get(i).getId_utente());
 				
 				
 				return "Utente " + (utenti.get(0)).getId_utente() + " aggiunto";
