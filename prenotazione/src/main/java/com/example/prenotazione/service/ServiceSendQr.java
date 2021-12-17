@@ -1,27 +1,10 @@
 package com.example.prenotazione.service;
 
+
+
 	import java.io.File;
 
-<<<<<<< HEAD
 	import javax.mail.Message;
-=======
-import net.glxn.qrgen.core.image.ImageType;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import net.glxn.qrgen.javase.QRCode;
-
-import javax.mail.Message;
->>>>>>> branch 'main' of git@github.com:francescorinaldi6/test.git
 	import javax.mail.MessagingException;
 	import javax.mail.internet.InternetAddress;
 	import javax.mail.internet.MimeMessage;
@@ -41,6 +24,8 @@ import javax.mail.Message;
 	@Service
 	public class ServiceSendQr {
 
+		
+		
 		private JavaMailSender javaMailSender;
 		private SimpleMailMessage simpleMailMessage;
 		
@@ -49,30 +34,7 @@ import javax.mail.Message;
 			this.javaMailSender = javaMailSender;
 		}
 		
-<<<<<<< HEAD
-=======
-//		public void qrGenerator(String string) {
-//			 try {
-//		            int size=300;
-//		            File file = QRCode.from("IL TESTO CHE VUOI!")
-//		                    .to(ImageType.PNG)
-//		                    .withSize(size, size)
-//		                    .file();
-//
-//		            String fileName = "/home/test/qrcode.png";
-//
-//		            Path path = Paths.get(fileName);
-//		            if (Files.exists(path)) {
-//		                Files.delete(path);
-//		            }
-//		            Files.copy(file.toPath(), path);
-//		        } catch (IOException e) {
-//		            System.out.println(e.getMessage());
-//		        }
-//		}
-		
->>>>>>> branch 'main' of git@github.com:francescorinaldi6/test.git
-		public void sendNotification(Mail Mail) throws MailException {
+		public void sendNotification(Mail Mail, String text) throws MailException {
 
 			SimpleMailMessage mail = new SimpleMailMessage();
 
@@ -85,31 +47,10 @@ import javax.mail.Message;
 					helper.setFrom("prenotazione22@gmail.com");
 					helper.setTo(Mail.getE_mail());
 					helper.setSubject("Qr Prenotazione"); 
-					helper.setText("Qr della prenotazione: ");    //dare info sulla prenotazione passando parametri
-<<<<<<< HEAD
+					helper.setText(text);    //dare info sulla prenotazione passando parametri
 						
-					FileSystemResource file = new FileSystemResource("C:/Users/Francesco/git/test/prenotazione/QrCode.jpg");
-=======
-					int size=300;
-					 File file = QRCode.from("IL TESTO CHE VUOI!")
-			                    .to(ImageType.PNG)
-			                    .withSize(size, size)
-			                    .file();
-					  try {
-				            
-				            String fileName = "/home/test/qrcode.png";
-
-				            Path path = Paths.get(fileName);
-				            if (Files.exists(path)) {
-				                Files.delete(path);
-				            }
-				            Files.copy(file.toPath(), path);
-				        } catch (IOException e) {
-				            System.out.println(e.getMessage());
-				        }
-//					FileSystemResource file = new FileSystemResource(file);  //metti il file del qr
-					helper.addAttachment(file.getName(), file);
->>>>>>> branch 'main' of git@github.com:francescorinaldi6/test.git
+					FileSystemResource file = new FileSystemResource("../prenotazione/QrCode.jpg");
+							helper.addAttachment(file.getFilename(), file);
 
 				     }catch (MessagingException e) {
 					throw new MailParseException(e);
@@ -119,3 +60,6 @@ import javax.mail.Message;
 		}
 		
 	}
+
+	
+

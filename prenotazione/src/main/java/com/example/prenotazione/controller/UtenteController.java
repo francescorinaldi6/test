@@ -73,9 +73,17 @@ public class UtenteController {
 
 			if (!dao.aziendaExists(utenti.get(i).id_azienda).isEmpty()) {
 
+				if (email.e_mailExists(utenti.get(i).getE_mail()).isEmpty()) {
+				
 				dao.save(utenti.get(i));
-
+				
+				//dao.InsertSiteUser(utenti.get(i).getId_utente());
+				
+				
 				return "Utente " + (utenti.get(0)).getId_utente() + " aggiunto";
+				}else {
+					return "Esiste già un account con questa mail";
+				}
 			} else {
 				return "L'azienda inserita non è stata registrata";
 			}
