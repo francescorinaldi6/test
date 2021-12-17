@@ -70,6 +70,7 @@ public class PrenotaController {
 	    return generatedString;
 	}
 
+	
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
 	public String creaPrenotazione(@RequestBody List<Prenota> p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
 
