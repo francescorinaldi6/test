@@ -34,7 +34,7 @@ package com.example.prenotazione.service;
 			this.javaMailSender = javaMailSender;
 		}
 		
-		public void sendNotification(Mail Mail) throws MailException {
+		public void sendNotification(Mail Mail, String text) throws MailException {
 
 			SimpleMailMessage mail = new SimpleMailMessage();
 
@@ -47,9 +47,10 @@ package com.example.prenotazione.service;
 					helper.setFrom("prenotazione22@gmail.com");
 					helper.setTo(Mail.getE_mail());
 					helper.setSubject("Qr Prenotazione"); 
-					helper.setText("Qr della prenotazione: ");    //dare info sulla prenotazione passando parametri
+					helper.setText(text);    //dare info sulla prenotazione passando parametri
 						
-					FileSystemResource file = new FileSystemResource("C:/Users/Francesco/git/test/prenotazione/QrCode.jpg");
+					FileSystemResource file = new FileSystemResource("../prenotazione/QrCode.jpg");
+							helper.addAttachment(file.getFilename(), file);
 
 				     }catch (MessagingException e) {
 					throw new MailParseException(e);

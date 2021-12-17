@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.prenotazione.dao.EmailDao;
 import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.PrenotaDao;
 import com.example.prenotazione.dao.UfficioDao;
 import com.example.prenotazione.model.Azienda;
+import com.example.prenotazione.model.Mail;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Ufficio;
@@ -40,6 +42,8 @@ import com.google.zxing.WriterException;
 public class PrenotaController {
 	@Autowired
 	private PrenotaDao dao;
+	@Autowired
+	private EmailDao email;
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -98,8 +102,12 @@ public class PrenotaController {
 					        // Convert Byte Array into Base64 Encode String
 					        String qrcode = Base64.getEncoder().encodeToString(image);
 					        
+					        System.out.println(email.getEmail(id_utente).get(i).getE_mail());
+					        Mail mail = new Mail();
+					        mail.setE_mail(email.getEmail(id_utente).get(i).getE_mail());
+					        String text = ("Prenotazione effettuata per il giorno: "+p.get(i).getData_prenotazione()+" al posto: "+p.get(i).getId_posto()+" nell'ufficio: "+id_ufficio);
 					        
-					     //   notificationService.sendNotification(mail);
+					       notificationService.sendNotification(mail,text);
 					        
 							
 							

@@ -50,8 +50,10 @@ public class ServiceForgotPassword {
 				helper.setSubject("Prenotazione ResetPassword");
 				helper.setText("http://localhost:9090/"+Mail.getE_mail()+"/ResetPassword");
 					
+				
+			//	FileSystemResource file = new FileSystemResource("../prenotazione/QrCode.jpg");
 		//		FileSystemResource file = new FileSystemResource("C:/Users/Francesco/git/test/prenotazione/QrCode.jpg");
-	//			helper.addAttachment(file.getFilename(), file);
+			//	helper.addAttachment(file.getFilename(), file);
 
 			     }catch (MessagingException e) {
 				throw new MailParseException(e);
