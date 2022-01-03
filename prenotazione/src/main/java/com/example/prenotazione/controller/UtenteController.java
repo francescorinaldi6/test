@@ -29,7 +29,7 @@ import com.example.prenotazione.model.Utente;
 import com.example.prenotazione.service.ServiceForgotPassword;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/Utente")
 
@@ -62,34 +62,34 @@ public class UtenteController {
 	
 	@PostMapping("/signup")
 
-	public String addUtente(@RequestBody List<Utente> utenti) {
+	public String addUtente(@RequestBody Utente utenti) {
 
-		for (int i = 0; i < utenti.size(); i++) {
+		
 
-			utenti.get(i).setPassword(encoder.encode(utenti.get(i).getPassword())); // conversione da chiaro a criptato
+			utenti.setPassword(encoder.encode(utenti.getPassword())); // conversione da chiaro a criptato
 
-		}
+		
 
-		for (int i = 0; i < utenti.size(); i++) {
+		
 
-			if (!dao.aziendaExists(utenti.get(i).id_azienda).isEmpty()) {
+			if (!dao.aziendaExists(utenti.id_azienda).isEmpty()) {
 
-				if (email.e_mailExists(utenti.get(i).getE_mail()).isEmpty()) {
+				if (email.e_mailExists(utenti.getE_mail()).isEmpty()) {
 				
-				dao.save(utenti.get(i));
+				dao.save(utenti);
 				
-				dao.InsertSiteUser(utenti.get(i).getId_utente());
+				dao.InsertSiteUser(utenti.getId_utente());
 				
 				
-				return "Utente " + (utenti.get(0)).getId_utente() + " aggiunto";
+				return "Utente " + (utenti).getId_utente() + " aggiunto";
 				}else {
 					return "Esiste già un account con questa mail";
 				}
 			} else {
 				return "L'azienda inserita non è stata registrata";
 			}
-		}
-		return "ok";
+		
+		
 	}
 
 	@PostMapping("/ForgotPassword")
