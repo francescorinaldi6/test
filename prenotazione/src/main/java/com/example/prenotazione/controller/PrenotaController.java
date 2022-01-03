@@ -121,8 +121,7 @@ public class PrenotaController {
 			}else {
 				return "Non esiste il posto "+p.getId_posto();
 			}
-		
-		return "";
+
 	}
 	//
 	
