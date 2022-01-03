@@ -1,4 +1,4 @@
-package com.example.prenotazione.controller;
+'package com.example.prenotazione.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -72,30 +72,29 @@ public class PrenotaController {
 
 	
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
-	public String creaPrenotazione(@RequestBody List<Prenota> p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
+	public String creaPrenotazione(@RequestBody Prenota p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
 
-	
-		
-		
-		for(int i=0; i<p.size();i++) {
 			
-			if(!dao.postoExists(p.get(i).getId_posto()).isEmpty()) {
-				if(dao.checkGiaPrenotato(p.get(i).getData_prenotazione(), id_utente).isEmpty()) {
-					 if(dao.checkPrenotabile(p.get(i).getData_prenotazione(), p.get(i).getId_posto()).isEmpty()) {
+			if(!dao.postoExists(p.getId_posto()).isEmpty()) {
+				
+				if(dao.checkGiaPrenotato(p.getData_prenotazione(), id_utente).isEmpty()) {
+					
+					 if(dao.checkPrenotabile(p.getData_prenotazione(), p.getId_posto()).isEmpty()) {
+						 
 						 String criptata = encoder.encode(generateRandomString());
-							p.get(i).setId_utente(id_utente);
-							p.get(i).setId_ufficio(id_ufficio);
-							p.get(i).setQrCode(criptata);
-							dao.save(p.get(i));
+							p.setId_utente(id_utente);
+							p.setId_ufficio(id_ufficio);
+							p.setQrCode(criptata);
+							dao.save(p);
 
 					        byte[] image = new byte[0];
 					        try {
 
 					            // Generate and Return Qr Code in Byte Array
-					            image = QRCodeGenerator.getQRCodeImage(p.get(i).getQrCode(),250,250);
+					            image = QRCodeGenerator.getQRCodeImage(p.getQrCode(),250,250);
 
 					            // Generate and Save Qr Code Image in static/image folder
-					            QRCodeGenerator.generateQRCodeImage(p.get(i).getQrCode(),250,250,QR_CODE_IMAGE_PATH);
+					            QRCodeGenerator.generateQRCodeImage(p.getQrCode(),250,250,QR_CODE_IMAGE_PATH);
 
 					        } catch (WriterException | IOException e) {
 					            e.printStackTrace();
@@ -103,26 +102,26 @@ public class PrenotaController {
 					        // Convert Byte Array into Base64 Encode String
 					        String qrcode = Base64.getEncoder().encodeToString(image);
 					        
-					        System.out.println(email.getEmail(id_utente).get(i).getE_mail());
+					        System.out.println(email.getEmail(id_utente).getE_mail());
 					        Mail mail = new Mail();
-					        mail.setE_mail(email.getEmail(id_utente).get(i).getE_mail());
-					        String text = ("Prenotazione effettuata per il giorno: "+p.get(i).getData_prenotazione()+" al posto: "+p.get(i).getId_posto()+" nell'ufficio: "+id_ufficio);
+					        mail.setE_mail(email.getEmail(id_utente).getE_mail());
+					        String text = ("Prenotazione effettuata per il giorno: "+p.getData_prenotazione()+" al posto: "+p.getId_posto()+" nell'ufficio: "+id_ufficio);
 					        
 					       notificationService.sendNotification(mail,text);
 					        
 							
 							
-							return "Hai effettuato la tua prenotazione al posto " + p.get(i).getId_posto()+ "     "+criptata;
+							return "Hai effettuato la tua prenotazione al posto " + p.getId_posto()+ "     "+criptata;
 						}else {
-							return "deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.get(i).getData_prenotazione();
+							return "deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.getData_prenotazione();
 						}
 				}  else {
-					return "Hai gia prenotato un posto per la data "+p.get(i).getData_prenotazione();
+					return "Hai gia prenotato un posto per la data "+p.getData_prenotazione();
 				}
 			}else {
-				return "Non esiste il posto "+p.get(i).getId_posto();
+				return "Non esiste il posto "+p.getId_posto();
 			}
-		}
+		
 		return "";
 	}
 	//

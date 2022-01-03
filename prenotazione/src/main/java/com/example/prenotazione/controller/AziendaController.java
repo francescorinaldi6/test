@@ -29,8 +29,6 @@ public class AziendaController {
 	@PostMapping("/addAziende")
 	public String addAziende(@RequestBody Azienda aziende) {
 
-		
-	
 			if(dao.pivaAlreadyInsert(aziende.getP_iva()).isEmpty()) {
 				dao.save(aziende);
 			}else {

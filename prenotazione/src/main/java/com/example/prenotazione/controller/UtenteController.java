@@ -56,7 +56,6 @@ public class UtenteController {
 		
 		return dao.utenti();
 		
-		
 	}
 	
 	
@@ -64,13 +63,7 @@ public class UtenteController {
 
 	public String addUtente(@RequestBody Utente utenti) {
 
-		
-
 			utenti.setPassword(encoder.encode(utenti.getPassword())); // conversione da chiaro a criptato
-
-		
-
-		
 
 			if (!dao.aziendaExists(utenti.id_azienda).isEmpty()) {
 
@@ -89,18 +82,16 @@ public class UtenteController {
 				return "L'azienda inserita non è stata registrata";
 			}
 		
-		
 	}
 
 	@PostMapping("/ForgotPassword")
-	public String ForgotPassword(@RequestBody List<Mail> e_mail) throws MessagingException {
+	public String ForgotPassword(@RequestBody Mail e_mail) throws MessagingException {
 
-		for (int i = 0; i < e_mail.size(); i++) {
-
-			if (!email.e_mailExists(e_mail.get(i).e_mail).isEmpty()) {
+		
+			if (!email.e_mailExists(e_mail.e_mail).isEmpty()) {
 //                send email
 				try {
-					notificationService.sendNotification(e_mail.get(0));
+					notificationService.sendNotification(e_mail);
 				} catch (MailException e) {
 					// catch error
 				}
@@ -109,12 +100,9 @@ public class UtenteController {
 				return "L'email inserita non appartiene a nessun utente";
 			}
 
-		}
 
-		return "ok" + e_mail.get(0).getE_mail();
+		return "ok" + e_mail.getE_mail();
 
-		
-		
 	}
 
 	@GetMapping("/{id}/getPrenotazione")
@@ -126,13 +114,13 @@ public class UtenteController {
 
 	
 	@PostMapping("/{mail}/ResetPassword")
-	public String ResetPassword(@PathVariable("mail") String mail, @RequestBody List<Password> password) {
-		for (int i = 0; i < password.size(); i++) {
-	password.get(i).setPassword(encoder.encode(password.get(i).getPassword()));
+	public String ResetPassword(@PathVariable("mail") String mail, @RequestBody Password password) {
+		
+	password.setPassword(encoder.encode(password.getPassword()));
 	
-		dao.ResetPassword(email.IdutentedaMail(mail).get(i),password.get(i).getPassword());
-		}
-		return "password aggiornata per l'utente" + password.get(0).getPassword()+"  "+email.IdutentedaMail(mail).get(0);
+		dao.ResetPassword(email.IdutentedaMail(mail),password.getPassword());
+		
+		return "password aggiornata per l'utente" + password.getPassword()+"  "+email.IdutentedaMail(mail);
 
 	}
 	

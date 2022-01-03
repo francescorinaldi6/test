@@ -25,27 +25,27 @@ public class UfficioController {
 	private PostoDao posto;
 
 	@PostMapping("/addUffici")
-	public String addUffici(@RequestBody List<Ufficio> uffici) {
+	public String addUffici(@RequestBody Ufficio uffici) {
 		Posto postazione = new Posto();
-		for (int i = 0; i < uffici.size(); i++) {
 
-			if (!dao.aziendaExists(uffici.get(i).id_azienda).isEmpty()) {
-				dao.save(uffici.get(i));
+			if (!dao.aziendaExists(uffici.id_azienda).isEmpty()) {
+				dao.save(uffici);
 
-				for (int j = 1; j < ((uffici.get(i)).getN_posti()) + 1; j++) {
+				for (int j = 1; j < ((uffici).getN_posti()) + 1; j++) {
 
 					postazione.setNumero_postazione(j);
-					postazione.setId_ufficio((uffici.get(i)).getId_ufficio());
+					postazione.setId_ufficio((uffici).getId_ufficio());
 					posto.save(postazione);
 				}
 
-				return "Sono stati aggiunti " + uffici.size() + " uffici";
+				return "L'ufficio è stato aggiunto";
+				
 			} else {
+				
 				return "L'azienda inserita non è stata registrata";
+				
 			}
-		}
-
-		return "";
+		
 	}
 
 	@GetMapping("/getUffici")
