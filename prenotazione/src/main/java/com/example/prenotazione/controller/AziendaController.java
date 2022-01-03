@@ -32,10 +32,10 @@ public class AziendaController {
 			if(dao.pivaAlreadyInsert(aziende.getP_iva()).isEmpty()) {
 				dao.save(aziende);
 			}else {
-				return "Hai gia inserito questa azienda";
+				return "2";
 			}
 		
-		return "Sono state aggiunte " + aziende + " aziende";
+		return "1";
 	}
 	
 	@GetMapping("/getAziende")

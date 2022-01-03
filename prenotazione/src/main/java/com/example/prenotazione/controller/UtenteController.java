@@ -62,6 +62,8 @@ public class UtenteController {
 	@PostMapping("/signup")
 
 	public String addUtente(@RequestBody Utente utenti) {
+		
+		String message;
 
 			utenti.setPassword(encoder.encode(utenti.getPassword())); // conversione da chiaro a criptato
 
@@ -76,7 +78,8 @@ public class UtenteController {
 				
 				return "Utente " + (utenti).getId_utente() + " aggiunto";
 				}else {
-					return "Esiste già un account con questa mail";
+					message = "Esiste già un account con questa mail";
+					return message;
 				}
 			} else {
 				return "L'azienda inserita non è stata registrata";
