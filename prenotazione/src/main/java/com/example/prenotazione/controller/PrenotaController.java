@@ -1,4 +1,4 @@
-'package com.example.prenotazione.controller;
+package com.example.prenotazione.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
