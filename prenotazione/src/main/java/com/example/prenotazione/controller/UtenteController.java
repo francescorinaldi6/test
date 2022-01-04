@@ -28,6 +28,7 @@ import com.example.prenotazione.model.Password;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Utente;
+import com.example.prenotazione.model.info;
 import com.example.prenotazione.service.ServiceForgotPassword;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,6 +39,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 public class UtenteController {
+	
+	public info ritorno = new info();
 	@Autowired
 	private ServiceForgotPassword notificationService;
 
@@ -82,7 +85,7 @@ public class UtenteController {
 	
 	@PostMapping("/signup")
 
-	public String addUtente(@RequestBody Utente utenti) {
+	public info addUtente(@RequestBody Utente utenti) {
 		
 		String message;
 
@@ -95,15 +98,19 @@ public class UtenteController {
 				dao.save(utenti);
 				
 				dao.InsertSiteUser(utenti.getId_utente());
-				
-				
-				return "Utente " + (utenti).getId_utente() + " aggiunto";
+				ritorno.setSuccess(1);
+				ritorno.setMessaggio("Ti sei regitrato con successo "+utenti.getNome());
+				return ritorno;
 				}else {
-					message = "Esiste già un account con questa mail";
-					return message;
+					ritorno.setSuccess(0);
+					ritorno.setMessaggio("Esiste già un account con questa mail");
+					
+					return ritorno;
 				}
 			} else {
-				return "L'azienda inserita non è stata registrata";
+				ritorno.setSuccess(0);
+				ritorno.setMessaggio("L'azienda inserita non è stata registrata");
+				return ritorno;
 			}
 		
 	}
