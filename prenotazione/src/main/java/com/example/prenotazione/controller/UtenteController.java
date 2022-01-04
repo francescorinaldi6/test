@@ -67,19 +67,23 @@ public class UtenteController {
 	
 	@PostMapping("/login")
 	
-	public int logUtente(@RequestBody Utente utenti) {
+	public info logUtente(@RequestBody Utente utenti) {
 	
 		
-		int ruolo = -1;
+		int ruolo = 0;
 		
 		if(dao.idUtenteLogin(utenti.getE_mail()) != null) {
 			boolean match = encoder.matches(utenti.getPassword(),email.passwUtenteLogin(utenti.getE_mail()));
 			if(match == true) {
+				
 				ruolo = dao.ruoloUtente(dao.idUtenteLogin(utenti.getE_mail()));
+			}else {
+				ritorno.setMessaggio("Credenziali errate");
 			}
 		}
 		
-		return ruolo;
+		ritorno.setSuccess(ruolo);
+		return ritorno;
 		
 	}
 	
