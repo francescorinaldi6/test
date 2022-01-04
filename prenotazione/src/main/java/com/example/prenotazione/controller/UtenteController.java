@@ -4,7 +4,9 @@ package com.example.prenotazione.controller;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.sql.DataSource;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,6 +42,8 @@ public class UtenteController {
 	private ServiceForgotPassword notificationService;
 
 	@Autowired
+	private DataSource dataSource;
+	@Autowired
 	private UtenteDao dao;
 	@Autowired
 	private PrenotaDao prenota;
@@ -58,6 +62,22 @@ public class UtenteController {
 		
 	}
 	
+	@PostMapping("/login")
+	
+	public int logUtente(@RequestBody Utente utenti) {
+	
+		int ruolo = -1;
+		
+		if(dao.idUtenteLogin(utenti.getE_mail()) != null) {
+			boolean match = encoder.matches(utenti.getPassword(),email.passwUtenteLogin(utenti.getE_mail()));
+			if(match == true) {
+				ruolo = dao.ruoloUtente(dao.idUtenteLogin(utenti.getE_mail()));
+			}
+		}
+		
+		return ruolo;
+		
+	}
 	
 	@PostMapping("/signup")
 

@@ -17,8 +17,14 @@ public interface UtenteDao extends CrudRepository<Utente, Integer> {
 	// prenotazione.auth_user_role.auth_user_id=prenotazione.utente.id_utente
 	@Query(value = "SELECT id_azienda FROM azienda a WHERE a.id_azienda = :id", nativeQuery = true)
 	List<Integer> aziendaExists(@Param("id") int id);
-
 	
+	
+	@Query(value = "SELECT id_utente FROM utente u WHERE u.e_mail = :e_mail", nativeQuery = true)
+	Integer idUtenteLogin(@Param("e_mail") String e_mail);
+	
+	@Query(value = "SELECT auth_role_id FROM auth_user_role a WHERE a.id_utente = :id", nativeQuery = true)
+	Integer ruoloUtente(@Param("id") Integer id);
+
 	@Query(value = "SELECT * FROM utente u ", nativeQuery = true)
 	List<Utente> utenti();
 	

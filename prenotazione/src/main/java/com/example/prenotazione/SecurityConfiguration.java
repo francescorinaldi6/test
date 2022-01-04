@@ -52,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Utente/login").permitAll()	
 				.antMatchers("/Utente/{id}/getPrenotazione").permitAll()	
 				.antMatchers("/Utente/{mail}/*").permitAll()	
+				.antMatchers("/Utente/login").permitAll()
 //				//prenota
 				.antMatchers("/Prenota/*").permitAll()	
 				.antMatchers("/Prenota/posto").permitAll()	
