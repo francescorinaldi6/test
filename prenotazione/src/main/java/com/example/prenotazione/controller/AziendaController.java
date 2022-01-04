@@ -15,6 +15,7 @@ import com.example.prenotazione.dao.AziendaDao;
 import com.example.prenotazione.dao.UfficioDao;
 import com.example.prenotazione.model.Azienda;
 import com.example.prenotazione.model.Ufficio;
+import com.example.prenotazione.model.info;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/Azienda")
@@ -25,17 +26,22 @@ public class AziendaController {
 	private AziendaDao dao;
 	@Autowired
 	private UfficioDao dao_uff;
-
+	
+	public info ritorno = new info();
+	
 	@PostMapping("/addAziende")
-	public String addAziende(@RequestBody Azienda aziende) {
+	public info addAziende(@RequestBody Azienda aziende) {
 
 			if(dao.pivaAlreadyInsert(aziende.getP_iva()).isEmpty()) {
 				dao.save(aziende);
 			}else {
-				return "2";
+				ritorno.setSuccess(0);
+				ritorno.setMessaggio("partita iva già registrata");
+				return ritorno;
 			}
-		
-		return "1";
+			ritorno.setSuccess(1);
+			ritorno.setMessaggio("Azienda inserita");
+			return ritorno;
 	}
 	
 	@GetMapping("/getAziende")
