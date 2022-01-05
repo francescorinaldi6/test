@@ -75,7 +75,7 @@ public class UtenteController {
 		if(dao.idUtenteLogin(utenti.getE_mail()) != null) {
 			boolean match = encoder.matches(utenti.getPassword(),email.passwUtenteLogin(utenti.getE_mail()));
 			if(match == true) {
-				
+				ritorno.setMessaggio("Login effettuato con successo");
 				ruolo = dao.ruoloUtente(dao.idUtenteLogin(utenti.getE_mail()));
 			}else {
 				ritorno.setMessaggio("Credenziali errate");
