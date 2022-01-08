@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.example.prenotazione.model.Mail;
 import com.example.prenotazione.model.Utente;
 
 public interface UtenteDao extends CrudRepository<Utente, Integer> {
@@ -27,6 +28,9 @@ public interface UtenteDao extends CrudRepository<Utente, Integer> {
 
 	@Query(value = "SELECT * FROM utente u ", nativeQuery = true)
 	List<Utente> utenti();
+	
+	@Query(value = "SELECT * FROM utente u WHERE u.e_mail = :e_mail", nativeQuery = true)
+	Utente utenteFromEmail(@Param("e_mail") String e_mail);
 	
 	@Transactional
 	@Modifying

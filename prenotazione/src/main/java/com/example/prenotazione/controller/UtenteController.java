@@ -87,11 +87,18 @@ public class UtenteController {
 		
 	}
 	
+@PostMapping("/infoutente")
+	
+	public Utente infoUtente(@RequestBody Utente utenti) {
+	
+		return dao.utenteFromEmail(utenti.getE_mail());
+		
+	}
+	
 	@PostMapping("/signup")
 
 	public info addUtente(@RequestBody Utente utenti) {
 		
-		String message;
 
 			utenti.setPassword(encoder.encode(utenti.getPassword())); // conversione da chiaro a criptato
 

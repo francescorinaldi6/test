@@ -14,18 +14,21 @@ import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.UfficioDao;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Ufficio;
+import com.example.prenotazione.model.info;
 
 @RestController
 @RequestMapping("/Ufficio")
 
 public class UfficioController {
+	public info ritorno = new info();
 	@Autowired
 	private UfficioDao dao;
 	@Autowired
 	private PostoDao posto;
 
 	@PostMapping("/addUffici")
-	public String addUffici(@RequestBody Ufficio uffici) {
+	public info addUffici(@RequestBody Ufficio uffici) {
+		
 		Posto postazione = new Posto();
 
 			if (!dao.aziendaExists(uffici.id_azienda).isEmpty()) {
@@ -38,11 +41,14 @@ public class UfficioController {
 					posto.save(postazione);
 				}
 
-				return "L'ufficio è stato aggiunto";
+				ritorno.setMessaggio("L'ufficio è stato aggiunto");
+				ritorno.setSuccess(1);
+				return ritorno;
 				
 			} else {
-				
-				return "L'azienda inserita non è stata registrata";
+				ritorno.setMessaggio("L'azienda inserita non è stata registrata");
+				ritorno.setSuccess(0);
+				return ritorno;
 				
 			}
 		
