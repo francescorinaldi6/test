@@ -89,9 +89,9 @@ public class UtenteController {
 	
 @PostMapping("/infoutente")
 	
-	public Utente infoUtente(@RequestBody Utente utenti) {
+	public Utente infoUtente(@RequestBody String mail) {
 	
-		return dao.utenteFromEmail(utenti.getE_mail());
+		return dao.utenteFromEmail(mail);
 		
 	}
 	
