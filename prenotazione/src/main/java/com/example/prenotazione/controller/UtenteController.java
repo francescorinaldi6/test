@@ -127,7 +127,7 @@ public class UtenteController {
 	}
 
 	@PostMapping("/ForgotPassword")
-	public String ForgotPassword(@RequestBody Mail e_mail) throws MessagingException {
+	public info ForgotPassword(@RequestBody Mail e_mail) throws MessagingException {
 
 		
 			if (!email.e_mailExists(e_mail.e_mail).isEmpty()) {
@@ -139,11 +139,14 @@ public class UtenteController {
 				}
 
 			} else {
-				return "L'email inserita non appartiene a nessun utente";
+				ritorno.setMessaggio("L'email inserita non appartiene a nessun utente") ;
+				ritorno.setSuccess(0);
+				return ritorno;
 			}
 
-
-		return "ok" + e_mail.getE_mail();
+			ritorno.setSuccess(1);
+			ritorno.setMessaggio("Email inviata");
+		return ritorno;
 
 	}
 
