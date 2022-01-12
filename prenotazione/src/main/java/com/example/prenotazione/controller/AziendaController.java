@@ -44,6 +44,20 @@ public class AziendaController {
 			return ritorno;
 	}
 	
+//	@PostMapping("/{id}/eliminaAzienda")
+//	public info eliminaAzienda(@PathVariable("id") int id) {
+//		
+//		dao.eliminaPostiUfficioAzienda(id);
+//		dao.eliminaPrenotazioniUfficioAzienda(id);
+//		dao.eliminaUfficiAzienda(id);
+//		dao.eliminaAzienda(id);
+//		
+//		
+//		ritorno.setMessaggio("L'ufficio e i relativi posti sono stati rimossi");
+//		ritorno.setSuccess(1);
+//		return ritorno;
+//	}
+	
 	@GetMapping("/getAziende")
 	public List<Azienda> getAziende() {
 		return (List<Azienda>) dao.findAll();

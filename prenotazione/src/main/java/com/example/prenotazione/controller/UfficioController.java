@@ -56,6 +56,18 @@ public class UfficioController {
 			}
 		
 	}
+	
+	@PostMapping("/{id}/eliminaUfficio")
+	public info eliminaUfficio(@PathVariable("id") int id) {
+		
+		dao.eliminaPostiUfficio(id);
+		dao.eliminaUfficio(id);
+		dao.eliminaPrenotazioniUfficio(id);
+		
+		ritorno.setMessaggio("L'ufficio e i relativi posti sono stati rimossi");
+		ritorno.setSuccess(1);
+		return ritorno;
+	}
 
 	@GetMapping("/getUffici")
 	public List<Ufficio> getUffici() {
