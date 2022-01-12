@@ -1,5 +1,6 @@
 package com.example.prenotazione.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,10 +67,11 @@ public class UfficioController {
 
 		return posto.getPostiTotali(id);
 	}
+	
+	@GetMapping("/{id}/{data}/getPostiDisp")
+	public List<Posto> getPostiDisp(@PathVariable("id") int id, @PathVariable("data") Date data) {
 
-	@GetMapping("/{id}/getPostiDisp")
-	public List<Posto> getPostiDisp(@PathVariable("id") int id) {
-
-		return posto.getPostiDisponibili(id);
+		return posto.getPostiDisponibili(id, data);
 	}
+	
 }

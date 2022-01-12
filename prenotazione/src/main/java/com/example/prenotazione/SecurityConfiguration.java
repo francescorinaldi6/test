@@ -63,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Ufficio/getUffici").permitAll()	
 				.antMatchers("/Ufficio/{id}/getPostiTot").permitAll()	
 				.antMatchers("/Ufficio/{id}/getPostiDisp").permitAll()	
+				.antMatchers("/Ufficio/{id}/{data}/getPostiDisp").permitAll()	
 				//azienda
 				.antMatchers("/Azienda").permitAll()	
 				.antMatchers("/Azienda/addAziende").permitAll()	
