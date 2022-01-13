@@ -38,8 +38,8 @@ public class Prenota {
 	public String getQrCode() {
 		return qr_code;
 	}
-	public void setQrCode(String qrCode) {
-		qr_code = qrCode;
+	public void setQrCode(String qr_code) {
+		this.qr_code = qr_code;
 	}
 	public int getId_utente() {
 		return id_utente;
