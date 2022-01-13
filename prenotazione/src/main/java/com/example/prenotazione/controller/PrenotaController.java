@@ -42,6 +42,7 @@ import com.google.zxing.WriterException;
 @RequestMapping("/Prenota")
 
 public class PrenotaController {
+	
 	public info ritorno = new info();
 	@Autowired
 	private PrenotaDao dao;
