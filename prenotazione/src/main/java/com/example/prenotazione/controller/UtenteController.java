@@ -151,7 +151,7 @@ public class UtenteController {
 	}
 
 	@GetMapping("/{id}/getPrenotazione")
-	public Prenota getPrenotazione(@PathVariable("id") int id) {
+	public List<Prenota> getPrenotazione(@PathVariable("id") int id) {
 
 		return prenota.getPrenotazione(id);
 	}

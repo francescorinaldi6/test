@@ -33,7 +33,7 @@ public interface PrenotaDao extends CrudRepository<Prenota, Integer> {
 	List<Integer> checkGiaPrenotato(@Param("data_prenotazione") Date data_prenotazione, @Param("id_utente") int id_utente);
 
 	@Query(value = "SELECT * FROM prenota p WHERE p.id_utente = :id", nativeQuery = true)
-	Prenota getPrenotazione(@Param("id") int id);
+	List<Prenota> getPrenotazione(@Param("id") int id);
 	
 	@Query(value = "SELECT id_posto FROM posto p WHERE p.id_posto = :id", nativeQuery = true)
 	List<Integer> postoExists(@Param("id") int id);
