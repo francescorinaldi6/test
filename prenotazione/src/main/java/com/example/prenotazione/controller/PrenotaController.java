@@ -134,7 +134,14 @@ public class PrenotaController {
 	}
 	//
 	
-	
+	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}/elimina")
+	public info eliminaPrenotazione(@RequestBody Prenota p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
+		
+		dao.eliminaPrenotazione(id_utente, id_ufficio, p.getData_prenotazione());
+		ritorno.setMessaggio("La prenotazione è stata annullata");
+		ritorno.setSuccess(1);
+		return ritorno;
+	}
 
     @GetMapping("/")
     public String getQRCode(Model model){

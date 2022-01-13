@@ -38,4 +38,8 @@ public interface PrenotaDao extends CrudRepository<Prenota, Integer> {
 	@Query(value = "SELECT id_posto FROM posto p WHERE p.id_posto = :id", nativeQuery = true)
 	List<Integer> postoExists(@Param("id") int id);
 
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM prenota p WHERE p.id_utente = :id_utente and p.id_ufficio = :id_ufficio and p.data_prenotazione = :data", nativeQuery = true)
+	void eliminaPrenotazione(@Param("id_utente") int id_utente, @Param("id_ufficio") int id_ufficio, @Param("data") Date data);
 }
