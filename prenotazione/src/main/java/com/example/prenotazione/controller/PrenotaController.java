@@ -31,6 +31,7 @@ import com.example.prenotazione.model.Mail;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Ufficio;
+import com.example.prenotazione.model.info;
 import com.example.prenotazione.service.QRCodeGenerator;
 import com.example.prenotazione.service.ServiceForgotPassword;
 import com.example.prenotazione.service.ServiceSendQr;
@@ -40,6 +41,7 @@ import com.google.zxing.WriterException;
 @RequestMapping("/Prenota")
 
 public class PrenotaController {
+	public info ritorno = new info();
 	@Autowired
 	private PrenotaDao dao;
 	@Autowired
@@ -72,7 +74,7 @@ public class PrenotaController {
 
 	
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
-	public String creaPrenotazione(@RequestBody Prenota p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
+	public info creaPrenotazione(@RequestBody Prenota p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
 
 			
 			if(!dao.postoExists(p.getId_posto()).isEmpty()) {
@@ -110,16 +112,23 @@ public class PrenotaController {
 					       notificationService.sendNotification(mail,text);
 					        
 							
-							
-							return "Hai effettuato la tua prenotazione al posto " + p.getId_posto()+ "     "+criptata;
+							ritorno.setMessaggio( "Hai effettuato la tua prenotazione al posto " + p.getId_posto());
+							ritorno.setSuccess(1);
+							return ritorno;
 						}else {
-							return "deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.getData_prenotazione();
+							ritorno.setMessaggio("deve scegliere un altro posto, quello da lei inserito è già occupato per la data "+p.getData_prenotazione());
+							ritorno.setSuccess(0);
+							return ritorno;
 						}
 				}  else {
-					return "Hai gia prenotato un posto per la data "+p.getData_prenotazione();
+					ritorno.setMessaggio("Hai gia prenotato un posto per la data "+p.getData_prenotazione());
+					ritorno.setSuccess(0);
+					return ritorno;
 				}
 			}else {
-				return "Non esiste il posto "+p.getId_posto();
+				ritorno.setMessaggio("Non esiste il posto "+p.getId_posto());
+				ritorno.setSuccess(0);
+				return ritorno;
 			}
 
 	}
