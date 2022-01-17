@@ -11,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.prenotazione.model.Azienda;
 import com.example.prenotazione.model.Ufficio;
 
-public interface AziendaDao extends CrudRepository<Azienda, Integer>{
+public interface AziendaDao extends CrudRepository<Azienda, String>{
 
 	@Query(value = "SELECT * FROM azienda a WHERE a.p_iva = :p_iva", nativeQuery = true)
 	List<Azienda> pivaAlreadyInsert(@Param("p_iva") int p_iva);
 	
+	@Query(value = "SELECT nome FROM azienda a WHERE a.id_azienda = :id_azienda", nativeQuery = true)
+	String getNomeById(@Param("id_azienda") int id_azienda);
 //	@Transactional
 //	@Modifying
 //	@Query(value = "DELETE FROM azienda u WHERE u.id_azienda = :id_azienda", nativeQuery = true)

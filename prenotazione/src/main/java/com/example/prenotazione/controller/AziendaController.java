@@ -58,6 +58,11 @@ public class AziendaController {
 //		return ritorno;
 //	}
 	
+	@GetMapping("/{id}/getNome")
+	public String getNomeAzienda(@PathVariable("id") int id) {
+		return dao.getNomeById(id);
+	}
+	
 	@GetMapping("/getAziende")
 	public List<Azienda> getAziende() {
 		return (List<Azienda>) dao.findAll();

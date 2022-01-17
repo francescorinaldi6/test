@@ -71,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Azienda/addAziende").permitAll()	
 				.antMatchers("/Azienda/getAziende").permitAll()	
 				.antMatchers("/Azienda/{id}/getUffici").permitAll()	
+				.antMatchers("/Azienda/{id}/getNome").permitAll()	
 				.antMatchers("/login").permitAll() //permitAll = tutti possonoa accedere
 				.antMatchers("/login2").permitAll() 
 				.antMatchers("/register").permitAll()
