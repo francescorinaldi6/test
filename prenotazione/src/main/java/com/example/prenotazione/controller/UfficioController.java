@@ -64,7 +64,7 @@ public class UfficioController {
 		dao.eliminaUfficio(id);
 		dao.eliminaPrenotazioniUfficio(id);
 		
-		ritorno.setMessaggio("L'ufficio e i relativi posti sono stati rimossi");
+		ritorno.setMessaggio("L'ufficio "+ id +" e i relativi posti sono stati rimossi");
 		ritorno.setSuccess(1);
 		return ritorno;
 	}
