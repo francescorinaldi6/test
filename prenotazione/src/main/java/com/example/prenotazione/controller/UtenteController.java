@@ -1,7 +1,9 @@
 
 package com.example.prenotazione.controller;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.sql.DataSource;
@@ -133,7 +135,12 @@ public class UtenteController {
 			if (!email.e_mailExists(e_mail.e_mail).isEmpty()) {
 //                send email
 				try {
-					notificationService.sendNotification(e_mail);
+					
+					String codice = getRandomString(6);
+					System.out.println(codice);
+					dao.setCodiceReset(dao.idUtenteLogin(e_mail.e_mail), codice);
+					notificationService.sendNotification(e_mail, codice);
+					
 				} catch (MailException e) {
 					// catch error
 				}
@@ -168,6 +175,44 @@ public class UtenteController {
 		return "password aggiornata per l'utente" + password.getPassword()+"  "+email.IdutentedaMail(mail);
 
 	}
+	
+	 static String getRandomString(int i) 
+	    { 
+		     byte[] bytearray;
+	        // bind the length 
+	        bytearray = new byte[256];         
+	        String mystring;
+	        StringBuffer thebuffer;
+	        String theAlphaNumericS;
+
+	        new Random().nextBytes(bytearray); 
+
+	        mystring 
+	            = new String(bytearray, Charset.forName("UTF-8")); 
+	            
+	        thebuffer = new StringBuffer();
+	        
+	        //remove all spacial char 
+	        theAlphaNumericS 
+	            = mystring 
+	                .replaceAll("[^A-Z0-9]", ""); 
+
+	        //random selection
+	        for (int m = 0; m < theAlphaNumericS.length(); m++) { 
+
+	            if (Character.isLetter(theAlphaNumericS.charAt(m)) 
+	                    && (i > 0) 
+	                || Character.isDigit(theAlphaNumericS.charAt(m)) 
+	                    && (i > 0)) { 
+
+	                thebuffer.append(theAlphaNumericS.charAt(m)); 
+	                i--; 
+	            } 
+	        } 
+
+	        // the resulting string 
+	        return thebuffer.toString(); 
+	    } 
 	
 	
 

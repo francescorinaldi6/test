@@ -4,8 +4,10 @@ package com.example.prenotazione.service;
 
 
 	import java.io.File;
+import java.nio.charset.Charset;
+import java.util.Random;
 
-	import javax.mail.Message;
+import javax.mail.Message;
 	import javax.mail.MessagingException;
 	import javax.mail.internet.InternetAddress;
 	import javax.mail.internet.MimeMessage;
@@ -59,6 +61,7 @@ package com.example.prenotazione.service;
 				     javaMailSender.send(message);
 		
 		}
+		
 		
 	}
 

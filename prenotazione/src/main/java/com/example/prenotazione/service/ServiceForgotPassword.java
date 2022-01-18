@@ -2,6 +2,8 @@
 package com.example.prenotazione.service;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -31,7 +33,7 @@ public class ServiceForgotPassword {
 		this.javaMailSender = javaMailSender;
 	}
 	
-	public void sendNotification(Mail Mail) throws MailException {
+	public void sendNotification(Mail Mail, String codice) throws MailException {
 		//send mail
 		SimpleMailMessage mail = new SimpleMailMessage();
 		/*mail.setTo(Mail.getE_mail());
@@ -49,7 +51,8 @@ public class ServiceForgotPassword {
 				helper.setFrom("prenotazione22@gmail.com");
 				helper.setTo(Mail.getE_mail());
 				helper.setSubject("Prenotazione ResetPassword");
-				helper.setText("http://localhost:9090/"+Mail.getE_mail()+"/ResetPassword");
+				helper.setText("Il tuo codice di verifica è: "+codice); //manda il codice di verifica
+			
 					
 				
 			//	FileSystemResource file = new FileSystemResource("../prenotazione/QrCode.jpg");
@@ -63,6 +66,7 @@ public class ServiceForgotPassword {
 		
 	//	javaMailSender.send(mail);
 	}
+	
 	
 }
 
