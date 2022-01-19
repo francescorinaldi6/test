@@ -31,6 +31,7 @@ import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
 import com.example.prenotazione.model.Utente;
 import com.example.prenotazione.model.info;
+import com.example.prenotazione.model.reset_password;
 import com.example.prenotazione.service.ServiceForgotPassword;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -166,13 +167,13 @@ public class UtenteController {
 
 	
 	@PostMapping("/{mail}/ResetPassword")
-	public info ResetPassword(@PathVariable("mail") String mail, @RequestBody String password, @RequestBody String conf_password, @RequestBody String codice) {
+	public info ResetPassword(@PathVariable("mail") String mail, @RequestBody reset_password reset) {
 		System.out.println("sdfsdf");
 		Password pass = new Password();
-		if(codice == email.getCodice(email.IdutentedaMail(mail))) {
-			if(conf_password == password) {
+		if(reset.codice == email.getCodice(email.IdutentedaMail(mail))) {
+			if(reset.conf_password == reset.password) {
 				
-				pass.setPassword(encoder.encode(password));
+				pass.setPassword(encoder.encode(reset.password));
 				
 				dao.ResetPassword(email.IdutentedaMail(mail),pass.getPassword());
 				dao.setCodiceResetNull(email.IdutentedaMail(mail));
