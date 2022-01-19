@@ -28,6 +28,7 @@ public class AziendaController {
 	private UfficioDao dao_uff;
 	
 	public info ritorno = new info();
+	public Azienda azienda = new Azienda();
 	
 	@PostMapping("/addAziende")
 	public info addAziende(@RequestBody Azienda aziende) {
@@ -59,8 +60,9 @@ public class AziendaController {
 //	}
 	
 	@GetMapping("/{id}/getNome")
-	public String getNomeAzienda(@PathVariable("id") int id) {
-		return dao.getNomeById(id);
+	public Azienda getNomeAzienda(@PathVariable("id") int id) {
+		azienda.setNome(dao.getNomeById(id));
+		return azienda;
 	}
 	
 	@GetMapping("/getAziende")
