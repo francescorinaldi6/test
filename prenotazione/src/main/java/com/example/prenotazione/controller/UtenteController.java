@@ -168,10 +168,11 @@ public class UtenteController {
 	
 	@PostMapping("/{mail}/ResetPassword")
 	public info ResetPassword(@PathVariable("mail") String mail, @RequestBody reset_password reset) {
-		System.out.println("sdfsdf");
+		
 		Password pass = new Password();
-		if(reset.codice == email.getCodice(email.IdutentedaMail(mail))) {
-			if(reset.conf_password == reset.password) {
+		
+		if(reset.codice.equalsIgnoreCase(email.getCodice(email.IdutentedaMail(mail)))) {
+			if(reset.conf_password.equalsIgnoreCase(reset.password)) {
 				
 				pass.setPassword(encoder.encode(reset.password));
 				
@@ -179,7 +180,7 @@ public class UtenteController {
 				dao.setCodiceResetNull(email.IdutentedaMail(mail));
 				
 				ritorno.setSuccess(1);
-				ritorno.setMessaggio("password aggiornata per l'utente" + pass.getPassword()+"  "+email.IdutentedaMail(mail));
+				ritorno.setMessaggio("password aggiornata per l'utente "+email.IdutentedaMail(mail));
 			}else {
 				ritorno.setSuccess(0);
 				ritorno.setMessaggio("Le password inserite non corrispondono");
