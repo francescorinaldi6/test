@@ -47,6 +47,10 @@ public interface UtenteDao extends CrudRepository<Utente, Integer> {
 	@Query(value = "insert into recupera_password (id_utente, codice) values (:id_utente, :codice)", nativeQuery = true)
 	void setCodiceReset(@Param("id_utente") Integer id_utente, @Param("codice") String codice);
 	
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM recupera_password p WHERE p.id_utente = :id_utente", nativeQuery = true)
+	void setCodiceResetNull(@Param("id_utente") Integer id_utente);
 	
 	
 	

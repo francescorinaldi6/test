@@ -137,7 +137,7 @@ public class UtenteController {
 				try {
 					
 					String codice = getRandomString(6);
-					System.out.println(codice);
+					dao.setCodiceResetNull(dao.idUtenteLogin(e_mail.e_mail));
 					dao.setCodiceReset(dao.idUtenteLogin(e_mail.e_mail), codice);
 					notificationService.sendNotification(e_mail, codice);
 					
@@ -166,13 +166,29 @@ public class UtenteController {
 
 	
 	@PostMapping("/{mail}/ResetPassword")
-	public String ResetPassword(@PathVariable("mail") String mail, @RequestBody Password password) {
+	public info ResetPassword(@PathVariable("mail") String mail, @RequestBody String password, @RequestBody String conf_password, @RequestBody String codice) {
+		System.out.println("sdfsdf");
+		Password pass = new Password();
+		if(codice == email.getCodice(email.IdutentedaMail(mail))) {
+			if(conf_password == password) {
+				
+				pass.setPassword(encoder.encode(password));
+				
+				dao.ResetPassword(email.IdutentedaMail(mail),pass.getPassword());
+				dao.setCodiceResetNull(email.IdutentedaMail(mail));
+				
+				ritorno.setSuccess(1);
+				ritorno.setMessaggio("password aggiornata per l'utente" + pass.getPassword()+"  "+email.IdutentedaMail(mail));
+			}else {
+				ritorno.setSuccess(0);
+				ritorno.setMessaggio("Le password inserite non corrispondono");
+			}
+		}else {
+				ritorno.setSuccess(0);
+				ritorno.setMessaggio("Il codice inserito non corrisponde");
+		}
 		
-	password.setPassword(encoder.encode(password.getPassword()));
-	
-		dao.ResetPassword(email.IdutentedaMail(mail),password.getPassword());
-		
-		return "password aggiornata per l'utente" + password.getPassword()+"  "+email.IdutentedaMail(mail);
+		return ritorno;
 
 	}
 	
