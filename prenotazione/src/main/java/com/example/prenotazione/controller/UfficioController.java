@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.UfficioDao;
-import com.example.prenotazione.model.ListaPosti;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Ufficio;
 import com.example.prenotazione.model.info;
