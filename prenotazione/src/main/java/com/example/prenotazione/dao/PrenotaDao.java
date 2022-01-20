@@ -35,6 +35,11 @@ public interface PrenotaDao extends CrudRepository<Prenota, Integer> {
 	@Query(value = "SELECT * FROM prenota p WHERE p.id_utente = :id", nativeQuery = true)
 	List<Prenota> getPrenotazione(@Param("id") int id);
 	
+	
+	@Query(value = "SELECT * FROM prenota p WHERE qr_code = :qr", nativeQuery = true)
+	Prenota CeckQrCode(@Param("qr") String qr);
+	
+	
 	@Query(value = "SELECT id_posto FROM posto p WHERE p.id_posto = :id", nativeQuery = true)
 	List<Integer> postoExists(@Param("id") int id);
 
@@ -42,4 +47,9 @@ public interface PrenotaDao extends CrudRepository<Prenota, Integer> {
 	@Modifying
 	@Query(value = "DELETE FROM prenota p WHERE p.id_utente = :id_utente and p.id_ufficio = :id_ufficio and p.data_prenotazione = :data", nativeQuery = true)
 	void eliminaPrenotazione(@Param("id_utente") int id_utente, @Param("id_ufficio") int id_ufficio, @Param("data") Date data);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM prenota p WHERE p.id_prenotazione = :id", nativeQuery = true)
+	void eliminaPrenotazioneScaduta(@Param("id") int id);
 }

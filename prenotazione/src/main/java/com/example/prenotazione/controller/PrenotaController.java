@@ -3,6 +3,7 @@ package com.example.prenotazione.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
@@ -153,6 +154,53 @@ public class PrenotaController {
     
         return "qrcode";
     }
+    
+	@PostMapping("/ControlloQrCode")
+	public info ControlloQrCode(@RequestBody Prenota QrCode) {
+		
+		 Prenota prenotazione = new Prenota();
+		 prenotazione = dao.CeckQrCode(QrCode.getQrCode());
+		 if(prenotazione!= null) {
+			 LocalDate todaysDate = LocalDate.now();
+			String Dataprenotazione = prenotazione.getData_prenotazione().toString();
+			
+			if (todaysDate.toString().equals(Dataprenotazione)) {
+				ritorno.setMessaggio("prenotazione valida");
+				dao.eliminaPrenotazioneScaduta(prenotazione.getId_prenotazione());
+				ritorno.setSuccess(1);
+
+			}
+			else {
+				if(todaysDate.isAfter(prenotazione.getData_prenotazione().toLocalDate())) {
+					ritorno.setMessaggio("prenotazione scaduta: eliminata");
+					dao.eliminaPrenotazioneScaduta(prenotazione.getId_prenotazione());
+					ritorno.setSuccess(-1);
+					
+
+				} else {
+					ritorno.setMessaggio("prenotazione in data successiva a quella odierna : conserva");
+					ritorno.setSuccess(0);
+
+				}
+				
+			}
+			
+			 
+			 
+		 }
+		 else {
+			 ritorno.setSuccess(-2);
+			 ritorno.setMessaggio("Prenotazione non trovata   ");
+		 }
+		
+		
+			 
+			
+			 
+		return ritorno;
+	}
+    
+    
 	
 
 }
