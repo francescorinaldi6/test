@@ -1,6 +1,7 @@
 package com.example.prenotazione.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.UfficioDao;
+import com.example.prenotazione.model.ListaPosti;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Ufficio;
 import com.example.prenotazione.model.info;
@@ -24,6 +26,7 @@ import com.example.prenotazione.model.info;
 
 public class UfficioController {
 	public info ritorno = new info();
+	
 	@Autowired
 	private UfficioDao dao;
 	@Autowired
@@ -74,10 +77,45 @@ public class UfficioController {
 		return (List<Ufficio>) dao.getUfficiPerAziende();
 	}
 
-	@GetMapping("/{id}/getPostiTot")
-	public List<Posto> getPostiTot(@PathVariable("id") int id) {
-
-		return posto.getPostiTotali(id);
+	@GetMapping("/{id}/{data}/getPostiTot")
+	public List<ListaPosti> getPostiTot(@PathVariable("id") int id, @PathVariable("data") Date data) {
+		List<Posto> posti_tot;
+		
+		ListaPosti p = new ListaPosti();
+		List<Posto> posti_d;
+		int flag=0;
+		posti_tot = posto.getPostiTotali(id);
+		ArrayList<ListaPosti> lista = null; /////////////////FIX
+		
+		System.out.println("t 1"+lista.size());
+		lista = new ArrayList<ListaPosti>(posti_tot.size());
+		System.out.println("t 2");
+		posti_d = posto.getPostiDisponibili(id, data);
+		System.out.println("t 3");
+		
+		for(int i=0; i<posti_tot.size(); i++) {
+			System.out.println("t 4");
+			for(int j=0; j< posti_d.size()&& flag==0; j++) {
+				System.out.println("t 5");
+				if(posti_tot.get(i) == posti_d.get(j)) {
+					System.out.println("t 6");
+					flag=1;
+					p.posto = posti_tot.get(i);
+					p.occupato = false;
+					lista.set(i, p) ;
+					System.out.println("t 7");
+				}
+			}
+			if(flag==0) {
+				p.posto = posti_tot.get(i);
+				p.occupato = true;
+				lista.set(i, p) ;
+			}else {
+				flag=0;
+			}
+			
+		}
+		return lista;
 	}
 	
 	@GetMapping("/{id}/{data}/getPostiDisp")
