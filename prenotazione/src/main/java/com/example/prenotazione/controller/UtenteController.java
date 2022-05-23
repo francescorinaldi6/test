@@ -35,7 +35,7 @@ import com.example.prenotazione.model.reset_password;
 import com.example.prenotazione.service.ServiceForgotPassword;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://192.168.1.25:4200")
 @RestController
 @RequestMapping("/Utente")
 

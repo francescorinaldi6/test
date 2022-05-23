@@ -38,7 +38,7 @@ import com.example.prenotazione.service.QRCodeGenerator;
 import com.example.prenotazione.service.ServiceForgotPassword;
 import com.example.prenotazione.service.ServiceSendQr;
 import com.google.zxing.WriterException;
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://192.168.1.25:4200")
 @RestController
 @RequestMapping("/Prenota")
 

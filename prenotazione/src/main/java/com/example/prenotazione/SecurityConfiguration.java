@@ -17,6 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	public String ip = "http://192.168.1.25:4200";
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
