@@ -19,7 +19,7 @@ import com.example.prenotazione.dao.UfficioDao;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Ufficio;
 import com.example.prenotazione.model.info;
-@CrossOrigin(origins = "http://192.168.1.25:4200")
+@CrossOrigin(origins = "http://192.168.1.48:4200")
 
 @RestController
 @RequestMapping("/Ufficio")
