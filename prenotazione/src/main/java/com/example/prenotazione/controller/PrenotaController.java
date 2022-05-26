@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.prenotazione.dao.AziendaDao;
 import com.example.prenotazione.dao.EmailDao;
 import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.PrenotaDao;
@@ -51,6 +53,10 @@ public class PrenotaController {
 	private EmailDao email;
 	@Autowired
 	private PostoDao posto;
+	@Autowired
+	private AziendaDao daoAzienda;
+	@Autowired
+	private UfficioDao daoUfficio;
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -117,9 +123,23 @@ public class PrenotaController {
 					        System.out.println(email.getEmail(id_utente).getE_mail());
 					        Mail mail = new Mail();
 					        mail.setE_mail(email.getEmail(id_utente).getE_mail());
-					        String text = ("Prenotazione effettuata per il giorno: "+p.getData_prenotazione()+" al posto: "+p.getId_posto()+" nell'ufficio: "+id_ufficio);
 					        
-					       notificationService.sendNotification(mail,text);
+					        List<Ufficio> uff;
+					        uff = daoUfficio.getUfficiDaID(id_ufficio);
+					       
+					        
+					        String text = ("Prenotazione effettuata per il giorno: "+p.getData_prenotazione()+" al posto: "+p.getId_posto()+" nell'ufficio: "+id_ufficio);
+					        String data = p.getData_prenotazione().toString();
+					        String title ="Prenotazione+" + daoAzienda.getNomeById(uff.get(0).id_azienda);
+					        String location=uff.get(0).indirizzo + "+Posto+n%C2%B0+"+posto.getNumerazionePostoById(p.id_posto);
+					        location.replace(' ','+');
+					        System.out.println(data);
+					        System.out.println(title);
+					        System.out.println(location.replace(' ','+'));
+					        
+					       
+					        
+					       notificationService.sendNotification(mail,text, title, (location.replace(' ','+')), data);
 					        
 							
 							ritorno.setMessaggio( "Hai effettuato la tua prenotazione al posto " + p.getId_posto());

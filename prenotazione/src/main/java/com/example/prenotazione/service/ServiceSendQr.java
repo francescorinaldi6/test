@@ -37,7 +37,7 @@ import javax.mail.Message;
 			this.javaMailSender = javaMailSender;
 		}
 		
-		public void sendNotification(Mail Mail, String text) throws MailException {
+		public void sendNotification(Mail Mail, String text, String title, String location, String date) throws MailException {
 
 			SimpleMailMessage mail = new SimpleMailMessage();
 
@@ -47,14 +47,24 @@ import javax.mail.Message;
 			 try{
 					MimeMessageHelper helper = new MimeMessageHelper(message, true);
 						
+					String UrlCalendar = "https://www.google.com/calendar/render?action=TEMPLATE&text="+title+"&location="+location+"&dates="+date+"T192300Z%2F"+date+"T192300Z";
+					
+					
 					helper.setFrom("prenotazione22@gmail.com");
 					helper.setTo(Mail.getE_mail());
 					helper.setSubject("Qr Prenotazione"); 
-					helper.setText(text);    //dare info sulla prenotazione passando parametri
+					
+					//helper.setText(text);    //dare info sulla prenotazione passando parametri
+					helper.setText("<html> <body><h1>PRENOTAZIONE </h1>   </body> <form>\r\n"
+							+ "    <a href=\""+UrlCalendar+"\">\r\n"
+							+ "        <input type=\"button\" value=\"Clicca quì per aggiungere l'evento al tuo calendario\">\r\n"
+							+ "    </a>\r\n"
+							+ "</form> </html> ",true);
+					
 						
 					FileSystemResource file = new FileSystemResource("../prenotazione/QrCode.jpg");
 							helper.addAttachment(file.getFilename(), file);
-
+							//message.setContent("<h1>Questo è il corpo del messaggio HTML</h1>", "text/html");
 				     }catch (MessagingException e) {
 					throw new MailParseException(e);
 				     }
