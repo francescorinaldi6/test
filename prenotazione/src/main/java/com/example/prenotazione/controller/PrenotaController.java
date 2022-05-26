@@ -49,6 +49,8 @@ public class PrenotaController {
 	private PrenotaDao dao;
 	@Autowired
 	private EmailDao email;
+	@Autowired
+	private PostoDao posto;
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -75,6 +77,11 @@ public class PrenotaController {
 	    return generatedString;
 	}
 
+	@GetMapping("/{id_posto}/getNumerazionePostoById")
+	public Integer getPrenotazione(@PathVariable("id_posto") int id_posto) {
+
+		return posto.getNumerazionePostoById(id_posto);
+	}
 	
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
 	public info creaPrenotazione(@RequestBody Prenota p, @PathVariable("id_utente") int id_utente,@PathVariable("id_ufficio") int id_ufficio) {
