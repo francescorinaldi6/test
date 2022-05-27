@@ -84,7 +84,7 @@ public class PrenotaController {
 	}
 
 	@GetMapping("/{id_posto}/getNumerazionePostoById")
-	public Integer getPrenotazione(@PathVariable("id_posto") int id_posto) {
+	public List<Posto> getPrenotazione(@PathVariable("id_posto") int id_posto) {
 
 		return posto.getNumerazionePostoById(id_posto);
 	}
