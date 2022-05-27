@@ -131,7 +131,7 @@ public class PrenotaController {
 					        String text = ("Prenotazione effettuata per il giorno: "+p.getData_prenotazione()+" al posto: "+p.getId_posto()+" nell'ufficio: "+id_ufficio);
 					        String data = p.getData_prenotazione().toString();
 					        String title ="Prenotazione+" + daoAzienda.getNomeById(uff.get(0).id_azienda);
-					        String location=uff.get(0).indirizzo + "+Posto+n%C2%B0+"+posto.getNumerazionePostoById(p.id_posto);
+					        String location=uff.get(0).indirizzo + "+Posto+n%C2%B0+"+(posto.getNumerazionePostoById(p.id_posto)).get(0).numero_postazione;
 					        location.replace(' ','+');
 					        System.out.println(data);
 					        System.out.println(title);
