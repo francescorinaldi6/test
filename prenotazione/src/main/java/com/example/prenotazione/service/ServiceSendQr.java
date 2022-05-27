@@ -55,7 +55,7 @@ import javax.mail.Message;
 					helper.setSubject("Qr Prenotazione"); 
 					
 					//helper.setText(text);    //dare info sulla prenotazione passando parametri
-					helper.setText("<html> <body><b>PRENOTAZIONE </b>   </body> <form>\r\n" 
+					helper.setText("<html> <body><b>"+title+" in "+location+" il giorno "+date+" </b>   </body> <form>\r\n" 
 						       + "    <a href=\""+UrlCalendar+"\">\r\n" 
 						       + "        <input type=\"button\" value=\"Clicca qui \" style=\"border-radius: 10px 10px 10px 10px; background-color: rgb(27, 30, 230); color: #fff;\">\r\n" 
 						       + "    </a>\r\n" 
