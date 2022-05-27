@@ -59,7 +59,7 @@ import javax.mail.Message;
 							+ "    <a href=\""+UrlCalendar+"\">\r\n"
 							+ "        <input type=\"button\" value=\"Clicca quì \" style=\"border-radius: 10px 10px 10px 10px; background-color: rgb(27, 30, 230); color: #fff;\">\r\n"
 							+ "    </a>\r\n"
-							+ "per aggiungere l'evento al tuo calendario"
+							+ " <a>per aggiungere l'evento al tuo calendario </a>\r\n"
 							+ "</form> </html> ",true);
 					
 						
