@@ -47,7 +47,7 @@ import javax.mail.Message;
 			 try{
 					MimeMessageHelper helper = new MimeMessageHelper(message, true);
 						
-					String UrlCalendar = "https://www.google.com/calendar/render?action=TEMPLATE&text="+title+"&location="+location+"&dates="+date+"T192300Z%2F"+date+"T192300Z";
+					String UrlCalendar = "https://www.google.com/calendar/render?action=TEMPLATE&text="+title+"&location="+location+"&dates="+(date.replace("-", ""))+"T192300Z%2F"+(date.replace("-", ""))+"T192300Z";
 					
 					
 					helper.setFrom("prenotazione22@gmail.com");
