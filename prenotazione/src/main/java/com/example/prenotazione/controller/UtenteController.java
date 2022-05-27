@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.prenotazione.dao.EmailDao;
+import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.PrenotaDao;
 import com.example.prenotazione.dao.UtenteDao;
 import com.example.prenotazione.model.Mail;
@@ -55,6 +56,8 @@ public class UtenteController {
 	private PrenotaDao prenota;
 	@Autowired
 	private EmailDao email;
+	@Autowired
+	private PostoDao posto;
 
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -160,8 +163,12 @@ public class UtenteController {
 
 	@GetMapping("/{id}/getPrenotazione")
 	public List<Prenota> getPrenotazione(@PathVariable("id") int id) {
-
-		return prenota.getPrenotazione(id);
+			List<Prenota> lista = prenota.getPrenotazione(id);
+			for(int i=0; i<lista.size(); i++ ) {
+				lista.get(i).setId_posto(posto.getNumerazionePostoById(lista.get(i).id_posto).get(0).numero_postazione);
+			}
+				
+		return lista;
 	}
 	
 

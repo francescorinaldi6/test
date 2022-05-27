@@ -142,7 +142,7 @@ public class PrenotaController {
 					       notificationService.sendNotification(mail,text, title, (location.replace(' ','+')), data);
 					        
 							
-							ritorno.setMessaggio( "Hai effettuato la tua prenotazione al posto " + p.getId_posto());
+							ritorno.setMessaggio( "Hai effettuato la tua prenotazione al posto " + posto.getNumerazionePostoById(p.getId_posto()).get(0).numero_postazione);
 							ritorno.setSuccess(1);
 							return ritorno;
 						}else {
