@@ -29,6 +29,7 @@ import com.example.prenotazione.dao.AziendaDao;
 import com.example.prenotazione.dao.EmailDao;
 import com.example.prenotazione.dao.PostoDao;
 import com.example.prenotazione.dao.PrenotaDao;
+import com.example.prenotazione.dao.Prenota_confDao;
 import com.example.prenotazione.dao.UfficioDao;
 import com.example.prenotazione.model.Azienda;
 import com.example.prenotazione.model.Mail;
@@ -57,6 +58,8 @@ public class PrenotaController {
 	private AziendaDao daoAzienda;
 	@Autowired
 	private UfficioDao daoUfficio;
+	@Autowired
+	private Prenota_confDao daoConf;
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -193,19 +196,20 @@ public class PrenotaController {
 			
 			if (todaysDate.toString().equals(Dataprenotazione)) {
 				ritorno.setMessaggio("prenotazione valida");
+				daoConf.putIntoPrenotaConf(prenotazione.getId_prenotazione(), prenotazione.getId_posto(), prenotazione.getId_ufficio(), prenotazione.getId_utente(), prenotazione.getData_prenotazione());
 				dao.eliminaPrenotazioneScaduta(prenotazione.getId_prenotazione());
 				ritorno.setSuccess(1);
 
 			}
 			else {
 				if(todaysDate.isAfter(prenotazione.getData_prenotazione().toLocalDate())) {
-					ritorno.setMessaggio("prenotazione scaduta: eliminata");
+					ritorno.setMessaggio("prenotazione scaduta");
 					dao.eliminaPrenotazioneScaduta(prenotazione.getId_prenotazione());
 					ritorno.setSuccess(-1);
 					
 
 				} else {
-					ritorno.setMessaggio("prenotazione in data successiva a quella odierna : conserva");
+					ritorno.setMessaggio("prenotazione in data successiva a quella odierna");
 					ritorno.setSuccess(0);
 
 				}

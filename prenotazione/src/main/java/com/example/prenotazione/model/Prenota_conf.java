@@ -22,7 +22,7 @@ package com.example.prenotazione.model;
 	@ToString
 
 	public class Prenota_conf {
-		@Id @GeneratedValue
+		@Id 
 		public int id_prenotazione; 
 		public int id_posto;
 		public int id_ufficio;
