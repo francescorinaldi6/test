@@ -2,6 +2,7 @@
 package com.example.prenotazione.controller;
 
 import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -164,10 +165,16 @@ public class UtenteController {
 	@GetMapping("/{id}/getPrenotazione")
 	public List<Prenota> getPrenotazione(@PathVariable("id") int id) {
 			List<Prenota> lista = prenota.getPrenotazione(id);
+			LocalDate todaysDate = LocalDate.now();
+			int size = lista.size();
 			for(int i=0; i<lista.size(); i++ ) {
-				lista.get(i).setId_posto(posto.getNumerazionePostoById(lista.get(i).id_posto).get(0).numero_postazione);
+				if(todaysDate.isBefore(lista.get(i).data_prenotazione.toLocalDate()) || todaysDate.isEqual(lista.get(i).data_prenotazione.toLocalDate()) ) {
+					lista.get(i).setId_posto(posto.getNumerazionePostoById(lista.get(i).id_posto).get(0).numero_postazione);
+				}else {
+					lista.remove(i);
+					i--;
+				}
 			}
-				
 		return lista;
 	}
 	

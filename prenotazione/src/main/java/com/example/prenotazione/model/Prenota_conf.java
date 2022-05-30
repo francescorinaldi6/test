@@ -28,10 +28,17 @@ package com.example.prenotazione.model;
 		public int id_ufficio;
 		public Date data_prenotazione;
 		public int id_utente;
+		public int validato;
 		
 		
 		//getter e setter
 		
+		public int isValidato() {
+			return validato;
+		}
+		public void setValidato(int validato) {
+			this.validato = validato;
+		}
 		public int getId_prenotazione() {
 			return id_prenotazione;
 		}

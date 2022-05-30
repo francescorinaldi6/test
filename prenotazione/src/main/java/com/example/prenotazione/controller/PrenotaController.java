@@ -58,8 +58,7 @@ public class PrenotaController {
 	private AziendaDao daoAzienda;
 	@Autowired
 	private UfficioDao daoUfficio;
-	@Autowired
-	private Prenota_confDao daoConf;
+	
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -196,7 +195,7 @@ public class PrenotaController {
 			
 			if (todaysDate.toString().equals(Dataprenotazione)) {
 				ritorno.setMessaggio("prenotazione valida");
-				daoConf.putIntoPrenotaConf(prenotazione.getId_prenotazione(), prenotazione.getId_posto(), prenotazione.getId_ufficio(), prenotazione.getId_utente(), prenotazione.getData_prenotazione());
+				dao.putIntoPrenotaConf(prenotazione.getId_prenotazione(), prenotazione.getId_posto(), prenotazione.getId_ufficio(), prenotazione.getId_utente(), prenotazione.getData_prenotazione(), 1);
 				dao.eliminaPrenotazioneScaduta(prenotazione.getId_prenotazione());
 				ritorno.setSuccess(1);
 
@@ -204,6 +203,7 @@ public class PrenotaController {
 			else {
 				if(todaysDate.isAfter(prenotazione.getData_prenotazione().toLocalDate())) {
 					ritorno.setMessaggio("prenotazione scaduta");
+					dao.putIntoPrenotaConf(prenotazione.getId_prenotazione(), prenotazione.getId_posto(), prenotazione.getId_ufficio(), prenotazione.getId_utente(), prenotazione.getData_prenotazione(), 0);
 					dao.eliminaPrenotazioneScaduta(prenotazione.getId_prenotazione());
 					ritorno.setSuccess(-1);
 					

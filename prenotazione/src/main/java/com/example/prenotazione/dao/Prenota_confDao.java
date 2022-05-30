@@ -23,9 +23,6 @@ import com.example.prenotazione.model.Prenota_conf;
 
 public interface Prenota_confDao extends CrudRepository<Prenota_conf, Integer> {
 
-	@Transactional
-	@Modifying
-	@Query(value = "insert into prenota_conf (id_prenotazione, id_posto, id_ufficio, id_utente, data_prenotazione) values (:id_prenotazione, :id_posto, :id_ufficio, :id_utente, :data_prenotazione)", nativeQuery = true)
-	void putIntoPrenotaConf(@Param("id_prenotazione") int id_prenotazione, @Param("id_posto") int id_posto, @Param("id_ufficio") int id_ufficio, @Param("id_utente") int id_utente, @Param("data_prenotazione") Date data_prenotazione);
+	
 	
 }
