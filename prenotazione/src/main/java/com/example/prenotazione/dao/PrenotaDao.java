@@ -37,7 +37,9 @@ public interface PrenotaDao extends CrudRepository<Prenota, Integer> {
 	
 	@Query(value = "SELECT * FROM prenota p WHERE p.id_utente = :id && WHERE p.data_prenotazione>=:data", nativeQuery = true)
 	List<Prenota> getPrenotazioneValide(@Param("id") int id, @Param("id") Date data);
-	
+
+	@Query(value = "SELECT * FROM prenota p WHERE p.id_ufficio = :id", nativeQuery = true)
+	List<Prenota> getPrenotazioneScadute(@Param("id") int id);
 	
 	@Query(value = "SELECT * FROM prenota p WHERE qr_code = :qr", nativeQuery = true)
 	Prenota CeckQrCode(@Param("qr") String qr);

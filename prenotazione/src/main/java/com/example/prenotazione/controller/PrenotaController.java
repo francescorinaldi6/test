@@ -58,6 +58,8 @@ public class PrenotaController {
 	private AziendaDao daoAzienda;
 	@Autowired
 	private UfficioDao daoUfficio;
+	@Autowired
+	private Prenota_confDao daoConf;
 	
 	
 	@Autowired
@@ -89,6 +91,28 @@ public class PrenotaController {
 	public List<Posto> getPrenotazione(@PathVariable("id_posto") int id_posto) {
 
 		return posto.getNumerazionePostoById(id_posto);
+	}
+	
+	@GetMapping("/{id_ufficio}/getPrenotazioneValidataUfficio")
+	public int getPrenotazioneValidataUfficio(@PathVariable("id_ufficio") int id_ufficio) {
+		return daoConf.GetPrenotazioniValidateUfficio(id_ufficio).size();
+	}
+	
+	@GetMapping("/{id_ufficio}/getPrenotazioneNonValidataUfficio")
+	public int getPrenotazioneNonValidataUfficio(@PathVariable("id_ufficio") int id_ufficio) {
+		int size_1 = daoConf.GetPrenotazioniNonValidateUfficio(id_ufficio).size();
+		List<Prenota> lista = dao.getPrenotazioneScadute(id_ufficio);
+		LocalDate todaysDate = LocalDate.now();
+		
+		for(int i=0; i<lista.size(); i++ ) {
+			if(todaysDate.isBefore(lista.get(i).data_prenotazione.toLocalDate()) || todaysDate.isEqual(lista.get(i).data_prenotazione.toLocalDate()) ) {
+				lista.remove(i);
+				i--;
+			}
+		}
+		
+		return lista.size()+size_1;
+		
 	}
 	
 	@PostMapping("/{id_utente}/{id_azienda}/{id_ufficio}")
