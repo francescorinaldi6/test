@@ -62,6 +62,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Prenota/{id_ufficio}/getPrenotazioneNonValidataUfficio").permitAll()	
 				.antMatchers("/Prenota/{id_ufficio}/{year}/getPrenotazioneNonValidataUfficioYear").permitAll()	
 				.antMatchers("/Prenota/{id_ufficio}/{year}/getPrenotazioneValidataUfficioYear").permitAll()	
+				.antMatchers("/Prenota/{id_ufficio}/{year}/{month}/getPrenotazioneValidataUfficioMonth").permitAll()	
+				.antMatchers("/Prenota/{id_ufficio}/{year}/{month}/getPrenotazioneNonValidataUfficioMonth").permitAll()	
+				.antMatchers("/Prenota/{id_ufficio}/{data}/getPrenotazioneNonValidataUfficioDay").permitAll()	
+				.antMatchers("/Prenota/{id_ufficio}/{data}/getPrenotazioneValidataUfficioDay").permitAll()	
 				.antMatchers("/Prenota/{id_posto}/getNumerazionePostoById").permitAll()	
 				.antMatchers("/Prenota/{id_utente}/{id_azienda}/{id_ufficio}/elimina").permitAll()	
 //				ufficio

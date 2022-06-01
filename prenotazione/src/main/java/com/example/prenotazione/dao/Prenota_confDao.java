@@ -26,7 +26,7 @@ public interface Prenota_confDao extends CrudRepository<Prenota_conf, Integer> {
 	@Query(value = "SELECT * FROM prenota_conf p WHERE validato = 1 and id_ufficio = :id_ufficio", nativeQuery = true)
 	List<Prenota_conf> GetPrenotazioniValidateUfficio(@Param("id_ufficio") int id_ufficio);
 	
-	@Query(value = "SELECT * FROM prenota_conf p WHERE validato = 1 and id_ufficio = :id_ufficio", nativeQuery = true)
+	@Query(value = "SELECT * FROM prenota_conf p WHERE validato = 0 and id_ufficio = :id_ufficio", nativeQuery = true)
 	List<Prenota_conf> GetPrenotazioniNonValidateUfficio(@Param("id_ufficio") int id_ufficio);
 	
 }

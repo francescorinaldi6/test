@@ -3,6 +3,7 @@ package com.example.prenotazione.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.Base64;
@@ -154,6 +155,93 @@ public class PrenotaController {
 		for(int j=0; j<lista_1.size(); j++ ) {
 
 			if((lista_1.get(j).data_prenotazione.getYear()+1900) != year) {
+				lista_1.remove(j);
+				j--;
+			}
+		}
+		
+		return lista_1.size();
+		
+	}
+	
+	@GetMapping("/{id_ufficio}/{year}/{month}/getPrenotazioneNonValidataUfficioMonth")
+	public int getPrenotazioneNonValidataUfficioMonth(@PathVariable("id_ufficio") int id_ufficio, @PathVariable("year") int year, @PathVariable("month") int month) {
+		
+		int size_1 = 0;
+		List<Prenota_conf> lista_1 = daoConf.GetPrenotazioniNonValidateUfficio(id_ufficio);
+		
+		for(int j=0; j<lista_1.size(); j++ ) {
+			if((lista_1.get(j).data_prenotazione.getYear()+1900) != year || lista_1.get(j).data_prenotazione.getMonth()+1!= month ) {
+				lista_1.remove(j);
+				j--;
+			}
+		}
+		
+		
+		List<Prenota> lista = dao.getPrenotazioneScadute(id_ufficio);
+		LocalDate todaysDate = LocalDate.now();
+		
+		for(int i=0; i<lista.size(); i++ ) {
+			
+			if((todaysDate.isBefore(lista.get(i).data_prenotazione.toLocalDate()) || (lista.get(i).data_prenotazione.getYear()+1900) != year) || lista.get(i).data_prenotazione.getMonth()+1!= month) {
+				lista.remove(i);
+				i--;
+			}
+		}
+		
+		return lista.size()+lista_1.size();
+		
+	}
+	@GetMapping("/{id_ufficio}/{year}/{month}/getPrenotazioneValidataUfficioMonth")
+	public int getPrenotazioneValidataUfficioMonth(@PathVariable("id_ufficio") int id_ufficio ,  @PathVariable("year") int year, @PathVariable("month") int month) {
+		int size_1 = 0;
+		List<Prenota_conf> lista_1 = daoConf.GetPrenotazioniValidateUfficio(id_ufficio);
+		
+		for(int j=0; j<lista_1.size(); j++ ) {
+
+			if((lista_1.get(j).data_prenotazione.getYear()+1900) != year || lista_1.get(j).data_prenotazione.getMonth()+1!= month) {
+				lista_1.remove(j);
+				j--;
+			}
+		}
+		
+		return lista_1.size();
+		
+	}
+	@GetMapping("/{id_ufficio}/{data}/getPrenotazioneNonValidataUfficioDay")
+	public int getPrenotazioneNonValidataUfficioDay(@PathVariable("id_ufficio") int id_ufficio, @PathVariable("data") Date data) {
+		
+		int size_1 = 0;
+		List<Prenota_conf> lista_1 = daoConf.GetPrenotazioniNonValidateUfficio(id_ufficio);
+		
+		for(int j=0; j<lista_1.size(); j++ ) {
+			if(data.compareTo(lista_1.get(j).data_prenotazione) != 0) {
+				lista_1.remove(j);
+				j--;
+			}
+		}
+		
+		
+		List<Prenota> lista = dao.getPrenotazioneScadute(id_ufficio);
+		
+		for(int i=0; i<lista.size(); i++ ) {
+			if(data.compareTo(lista.get(i).data_prenotazione) != 0) {
+				lista.remove(i);
+				i--;
+			}
+		}
+		
+		return lista.size()+lista_1.size();
+		
+	}
+	
+	@GetMapping("/{id_ufficio}/{data}/getPrenotazioneValidataUfficioDay")
+	public int getPrenotazioneValidataUfficioDay(@PathVariable("id_ufficio") int id_ufficio, @PathVariable("data") Date data) {
+		int size_1 = 0;
+		List<Prenota_conf> lista_1 = daoConf.GetPrenotazioniValidateUfficio(id_ufficio);
+		
+		for(int j=0; j<lista_1.size(); j++ ) {
+			if(data.compareTo(lista_1.get(j).data_prenotazione) != 0) {
 				lista_1.remove(j);
 				j--;
 			}
