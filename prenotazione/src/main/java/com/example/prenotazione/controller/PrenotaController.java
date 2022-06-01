@@ -257,7 +257,7 @@ public class PrenotaController {
 			
 			if(!dao.postoExists(p.getId_posto()).isEmpty()) {
 				
-				if(dao.checkGiaPrenotato(p.getData_prenotazione(), id_utente).isEmpty()) {
+				if(dao.checkGiaPrenotato(p.getData_prenotazione(), id_utente).isEmpty() && dao.checkGiaPrenotatoEValidato(p.getData_prenotazione(), id_utente).isEmpty()) {
 					
 					 if(dao.checkPrenotabile(p.getData_prenotazione(), p.getId_posto()).isEmpty()) {
 						 
