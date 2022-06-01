@@ -60,6 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/Prenota/{id_utente}/{id_azienda}/{id_ufficio}").permitAll()	
 				.antMatchers("/Prenota/{id_ufficio}/getPrenotazioneValidataUfficio").permitAll()	
 				.antMatchers("/Prenota/{id_ufficio}/getPrenotazioneNonValidataUfficio").permitAll()	
+				.antMatchers("/Prenota/{id_ufficio}/{year}/getPrenotazioneNonValidataUfficioYear").permitAll()	
+				.antMatchers("/Prenota/{id_ufficio}/{year}/getPrenotazioneValidataUfficioYear").permitAll()	
 				.antMatchers("/Prenota/{id_posto}/getNumerazionePostoById").permitAll()	
 				.antMatchers("/Prenota/{id_utente}/{id_azienda}/{id_ufficio}/elimina").permitAll()	
 //				ufficio

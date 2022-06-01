@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
@@ -35,6 +36,7 @@ import com.example.prenotazione.model.Azienda;
 import com.example.prenotazione.model.Mail;
 import com.example.prenotazione.model.Posto;
 import com.example.prenotazione.model.Prenota;
+import com.example.prenotazione.model.Prenota_conf;
 import com.example.prenotazione.model.Ufficio;
 import com.example.prenotazione.model.info;
 import com.example.prenotazione.service.QRCodeGenerator;
@@ -112,6 +114,52 @@ public class PrenotaController {
 		}
 		
 		return lista.size()+size_1;
+		
+	}
+	
+	@GetMapping("/{id_ufficio}/{year}/getPrenotazioneNonValidataUfficioYear")
+	public int getPrenotazioneValidataNonUfficioYear(@PathVariable("id_ufficio") int id_ufficio, @PathVariable("year") int year) {
+		
+		int size_1 = 0;
+		List<Prenota_conf> lista_1 = daoConf.GetPrenotazioniNonValidateUfficio(id_ufficio);
+		
+		for(int j=0; j<lista_1.size(); j++ ) {
+			
+			if((lista_1.get(j).data_prenotazione.getYear()+1900) != year) {
+				lista_1.remove(j);
+				j--;
+			}
+		}
+		
+		
+		List<Prenota> lista = dao.getPrenotazioneScadute(id_ufficio);
+		LocalDate todaysDate = LocalDate.now();
+		
+		for(int i=0; i<lista.size(); i++ ) {
+			
+			if((todaysDate.isBefore(lista.get(i).data_prenotazione.toLocalDate()) || (lista.get(i).data_prenotazione.getYear()+1900) != year)) {
+				lista.remove(i);
+				i--;
+			}
+		}
+		
+		return lista.size()+lista_1.size();
+		
+	}
+	@GetMapping("/{id_ufficio}/{year}/getPrenotazioneValidataUfficioYear")
+	public int getPrenotazioneValidataUfficioYear(@PathVariable("id_ufficio") int id_ufficio , @PathVariable("year") int year) {
+		int size_1 = 0;
+		List<Prenota_conf> lista_1 = daoConf.GetPrenotazioniValidateUfficio(id_ufficio);
+		
+		for(int j=0; j<lista_1.size(); j++ ) {
+
+			if((lista_1.get(j).data_prenotazione.getYear()+1900) != year) {
+				lista_1.remove(j);
+				j--;
+			}
+		}
+		
+		return lista_1.size();
 		
 	}
 	
